@@ -1,11 +1,12 @@
-import './App.css'
-import CounterPage from './CounterPage'
+import "./App.css";
+import CounterPage from "./CounterPage";
+import TodoListPage from "./TodoListPage";
 
 function App() {
   return (
-    <CounterPage></CounterPage>
-  ) 
-
+    // <CounterPage></CounterPage>
+    <TodoListPage></TodoListPage>
+  );
 }
 
-export default App
+export default App;
