@@ -1,5 +1,4 @@
-
-.count-viewer{
+.counterViewer {
   --font-size: 40px;
   height: 120px;
   line-height: 120px;
@@ -7,24 +6,24 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  
-  strong{
+
+  strong {
     position: relative;
     font-size: var(--font-size);
     height: var(--font-size);
     line-height: 1;
-    span{
+    span {
       line-height: 1;
       position: absolute;
       top: -10px;
       right: 0;
       font-size: 12px;
-      
-      &.plus{
+
+      &.plus {
         color: blue;
         animation: plus 1s forwards;
       }
-      &.minus{
+      &.minus {
         top: 15%;
         color: red;
         animation: minus 1s forwards;
@@ -34,10 +33,22 @@
 }
 
 @keyframes plus {
-  from { transform: translateY(0); opacity: 1}
-  to { transform: translateY(200%); opacity: 0}
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(200%);
+    opacity: 0;
+  }
 }
 @keyframes minus {
-  from { transform: translateY(0); opacity: 1}
-  to { transform: translateY(-200%); opacity: 0}
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(-200%);
+    opacity: 0;
+  }
 }
