@@ -7,8 +7,8 @@
   }
 
   input + span {
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
     background: #fff;
     border: 1px solid #ddd;
   }

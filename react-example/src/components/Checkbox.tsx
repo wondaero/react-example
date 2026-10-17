@@ -11,7 +11,7 @@ type InputProps = {
 
 function Checkbox({ title, className, onChange, effect }: InputProps) {
   return (
-    <label className={`styles.chkboxWrapper ${className || ""}`}>
+    <label className={`${styles.chkboxWrapper} ${className || ""}`}>
       <input
         type="checkbox"
         className={`${styles.input}`}

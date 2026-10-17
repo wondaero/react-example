@@ -1,4 +1,4 @@
-import type {ReactNode} from 'react'
+import { memo, type ReactNode } from 'react'
 
 type HeaderProps = {
   children?: ReactNode
@@ -22,4 +22,4 @@ function Header({children, title, left, right}: HeaderProps) {
   )
 }
 
-export default Header
+export default memo(Header)
