@@ -2,6 +2,7 @@ import './App.css'
 
 function DailyPage() {
   return (
+    <></>
   )
 }
 
