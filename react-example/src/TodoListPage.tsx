@@ -7,9 +7,9 @@ import TodoBrowser from "./components/todolist/TodoBrowser";
 import type { Todo, Actions } from './types/todo'
 
 const initTodo = [
-  { id: crypto.randomUUID(), title: "안녕", completed: true, date: Date.now() },
-  { id: crypto.randomUUID(), title: "안녕2", completed: false, date: Date.now() },
-  { id: crypto.randomUUID(), title: "안녕3", completed: false, date: Date.now() },
+  { id: crypto.randomUUID(), title: "물마시기", completed: true, date: Date.now() },
+  { id: crypto.randomUUID(), title: "은행방문", completed: false, date: Date.now() },
+  { id: crypto.randomUUID(), title: "친구에게 전화", completed: false, date: Date.now() },
 ]
 export const TodoContext = createContext<Todo[]>([]);
 export const TodoActionsContext = createContext<Actions | null>(null);
