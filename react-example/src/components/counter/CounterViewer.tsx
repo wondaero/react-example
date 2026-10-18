@@ -21,7 +21,7 @@ function CounterViewer({ num, last }: CounterViewerProps) {
     >
       <strong>
         {num}
-        <span key={num} className={last?.indexOf("-") === 0 ? "minus" : "plus"}>
+        <span key={num} className={last?.startsWith('-') ? styles.minus : styles.plus}>
           {last}
         </span>
       </strong>

@@ -1,0 +1,6 @@
+.deleting{
+  transform: scale(2);
+  pointer-events: none;
+  opacity: 0;
+  transition: transform .5s ease-out, opacity .5s ease-out;
+}

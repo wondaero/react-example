@@ -2,22 +2,57 @@
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  cursor: pointer;
+
   input {
     display: none;
   }
 
-  input + span {
-    width: 32px;
-    height: 32px;
-    background: #fff;
-    border: 1px solid #ddd;
-  }
-  input ~ strong {
+  input {
+    & + span{
+      width: 32px;
+      height: 32px;
+      background: #fff;
+      border: 1px solid #ccc;
+      margin-right: 8px;
+      border-radius: 8px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      &:after{
+        content: '';
+        border-left: 2px solid #000;
+        border-bottom: 2px solid #000;
+        display: block;
+        width: 16px;
+        height: 8px;
+        rotate: -45deg;
+        translate: 0 -8px;
+        opacity: 0;
+      }
+    }
+    
+    &:checked + span{
+      &:after{
+        opacity: 1;
+        transform: translate(-4px, 4px);
+        transition: transform .3s, opacity .5s;
+      }
+    }
+
+    & ~ strong{
+
+    }
+    &:checked ~ strong.effect1{
+      text-decoration: line-through;
+    }
   }
 }
 
 input {
-  border: 1px solid #ddd;
+  border: 1px solid #ccc;
   border-radius: 8px;
   height: 40px;
   padding: 4px 8px;

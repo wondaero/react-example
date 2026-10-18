@@ -1,5 +1,5 @@
 import styles from "./Checkbox.module.css";
-import type { ChangeEventHandler } from "react";
+import  { useState, type ChangeEventHandler } from "react";
 
 type InputProps = {
   title?: string;
@@ -9,16 +9,18 @@ type InputProps = {
   effect?: boolean;
 };
 
-function Checkbox({ title, className, onChange, effect }: InputProps) {
+function Checkbox({ checked, title, className, onChange, effect }: InputProps) {
+  // const [isChked, setIsChked] = useState(false);
   return (
     <label className={`${styles.chkboxWrapper} ${className || ""}`}>
       <input
         type="checkbox"
         className={`${styles.input}`}
         onChange={onChange}
+        checked={checked}
       ></input>
       <span></span>
-      {title && <strong>{title}</strong>}
+      {title && <strong className={effect && styles.effect1}>{title}</strong>}
     </label>
   );
 }

@@ -1,5 +1,5 @@
 import styles from "./Input.module.css";
-import type { ChangeEventHandler } from "react";
+import type { ChangeEventHandler, KeyboardEventHandler, Ref } from "react";
 
 type InputProps = {
   label?: string;
@@ -7,7 +7,11 @@ type InputProps = {
   type?: string;
   placeholder?: string;
   className?: string;
+  labelClass?: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
+  onKeyUp?: KeyboardEventHandler<HTMLInputElement>
+  value?: string;
+  ref?: Ref<HTMLInputElement>
 };
 
 function Button({
@@ -16,11 +20,15 @@ function Button({
   type,
   placeholder,
   className,
+  labelClass,
   onChange,
+  onKeyUp,
+  value,
+  ref
 }: InputProps) {
   return (
     <label
-      className={`${styles.inputWrapper} ${labelPosition === "top" && styles.withTopLabel}`}
+      className={`${styles.inputWrapper} ${labelPosition === "top" && styles.withTopLabel} ${labelClass}`}
     >
       {label && <strong>{label}</strong>}
       <input
@@ -28,6 +36,9 @@ function Button({
         placeholder={placeholder}
         className={`${styles.input} ${className || ""}`}
         onChange={onChange}
+        onKeyUp={onKeyUp}
+        value={value}
+        ref={ref}
       ></input>
     </label>
   );

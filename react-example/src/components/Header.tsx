@@ -9,7 +9,7 @@ type HeaderProps = {
 
 function Header({children, title, left, right}: HeaderProps) {
   return (
-    <header>
+    <header className="mb-4">
       {children ?? (
           <>
             <div>{left}</div>
