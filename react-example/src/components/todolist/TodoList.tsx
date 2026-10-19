@@ -7,24 +7,39 @@ import { TodoContext, TodoActionsContext } from "../../TodoListPage";
 
 import styles from "./TodoList.module.css";
 
+const dateParse = (d: string | number) => {
+  return new Date(d).toLocaleString("ko-KR", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: true,
+  });
+};
+
 function TodoItem({ data }: { data: Todo }) {
   const TodoActions = useContext(TodoActionsContext);
   const todoItem = useRef<HTMLLIElement>(null);
 
-  const delEffect = (id) => {
+  const delEffect = (id: string) => {
     if (!window.confirm("삭제할까요?")) return;
-    todoItem.current.classList.add(styles.deleting);
+    const el = todoItem.current;
+    if (!el) return;
+    el.classList.add(styles.deleting);
 
-    todoItem.current.ontransitionend = (e) => {
+    el.ontransitionend = (e) => {
       if (e.target !== e.currentTarget) return;
       if (e.propertyName !== "opacity") return;
       TodoActions.deleteTodo(id);
     };
   };
+
   return (
     <li ref={todoItem} className="flex items-center gap-2">
       <Checkbox
-        title={data.title}
+        // title={`[${dateParse(data.date)}] ${data.title}`}
+        title={`${data.title}`}
         checked={data.completed}
         className="flex-1"
         onChange={() => {
@@ -46,7 +61,7 @@ function TodoItem({ data }: { data: Todo }) {
 
 const normalize = (s: string) => s.replace(/\s/g, "").toLowerCase();
 
-function TodoList({ keyword }: { keyword?: string }) {
+function TodoList({ keyword = "" }: { keyword?: string }) {
   const TodoList = useContext(TodoContext);
   const filteredData = TodoList.filter((t) =>
     normalize(t.title).includes(normalize(keyword)),

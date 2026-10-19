@@ -1,5 +1,5 @@
 import styles from "./Checkbox.module.css";
-import  { useState, type ChangeEventHandler } from "react";
+import { type ChangeEventHandler } from "react";
 
 type InputProps = {
   title?: string;
@@ -20,7 +20,9 @@ function Checkbox({ checked, title, className, onChange, effect }: InputProps) {
         checked={checked}
       ></input>
       <span></span>
-      {title && <strong className={effect && styles.effect1}>{title}</strong>}
+      {title && (
+        <strong className={effect ? styles.effect1 : undefined}>{title}</strong>
+      )}
     </label>
   );
 }
