@@ -1,9 +1,10 @@
 @layer components {
   .btn {
-    background: mistyrose;
+    background: var(--color1);
     border-radius: 8px;
     padding: 8px 12px;
     border: 0;
     cursor: pointer;
+    color: #000;
   }
 }

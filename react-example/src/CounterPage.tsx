@@ -1,24 +1,29 @@
-import { useState } from 'react'
-import './App.css'
-import Header from './components/Header'
-import CounterViewer from './components/counter/CounterViewer'
-import CounterController from './components/counter/CounterController'
+import { useState } from "react";
+import "./App.css";
+import Header from "./components/Header";
+import LinkButton from "./components/LinkButton";
+import CounterViewer from "./components/counter/CounterViewer";
+import CounterController from "./components/counter/CounterController";
 
 function CounterPage() {
   const [countState, setCountState] = useState({
     num: 0,
-    last: null
-  })
-
+    last: null,
+  });
 
   return (
     <>
-      <Header title="cOUNTER"></Header>
-      <CounterViewer num={countState.num} last={countState.last}></CounterViewer>
+      <Header
+        title="cOUNTER"
+        left={<LinkButton to="/">홈</LinkButton>}
+      ></Header>
+      <CounterViewer
+        num={countState.num}
+        last={countState.last}
+      ></CounterViewer>
       <CounterController handler={setCountState}></CounterController>
     </>
-    
-  )
+  );
 }
 
-export default CounterPage
+export default CounterPage;
