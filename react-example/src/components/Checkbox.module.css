@@ -9,12 +9,12 @@
   }
 
   input {
-    & + span{
+    & + span {
       flex-shrink: 0;
       width: 32px;
       height: 32px;
       background: #fff;
-      border: 1px solid #ccc;
+      border: 1px solid var(--border-color1);
       margin-right: 8px;
       border-radius: 8px;
       position: relative;
@@ -22,8 +22,8 @@
       align-items: center;
       justify-content: center;
 
-      &:after{
-        content: '';
+      &:after {
+        content: "";
         border-left: 2px solid #000;
         border-bottom: 2px solid #000;
         display: block;
@@ -34,26 +34,27 @@
         opacity: 0;
       }
     }
-    
-    &:checked + span{
-      &:after{
+
+    &:checked + span {
+      &:after {
         opacity: 1;
         transform: translate(-4px, 4px);
-        transition: transform .3s, opacity .5s;
+        transition:
+          transform 0.3s,
+          opacity 0.5s;
       }
     }
 
-    & ~ strong{
-
+    & ~ strong {
     }
-    &:checked ~ strong.effect1{
+    &:checked ~ strong.effect1 {
       text-decoration: line-through;
     }
   }
 }
 
 input {
-  border: 1px solid #ccc;
+  border: 1px solid var(--border-color1);
   border-radius: 8px;
   height: 40px;
   padding: 4px 8px;

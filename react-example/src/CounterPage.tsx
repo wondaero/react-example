@@ -5,6 +5,8 @@ import LinkButton from "./components/LinkButton";
 import CounterViewer from "./components/counter/CounterViewer";
 import CounterController from "./components/counter/CounterController";
 
+const homeLink = <LinkButton to="/">홈</LinkButton>;
+
 function CounterPage() {
   const [countState, setCountState] = useState({
     num: 0,
@@ -13,10 +15,7 @@ function CounterPage() {
 
   return (
     <>
-      <Header
-        title="cOUNTER"
-        left={<LinkButton to="/">홈</LinkButton>}
-      ></Header>
+      <Header title="cOUNTER" left={homeLink}></Header>
       <CounterViewer
         num={countState.num}
         last={countState.last}

@@ -30,6 +30,8 @@ const initTodo = [
 export const TodoContext = createContext<Todo[]>([]);
 export const TodoActionsContext = createContext<Actions | null>(null);
 
+const homeLink = <LinkButton to="/">홈</LinkButton>;
+
 function TodoListPage() {
   const [todoList, setTodoList] = useState<Todo[]>(initTodo);
 
@@ -62,10 +64,7 @@ function TodoListPage() {
 
   return (
     <>
-      <Header
-        title="tODOLIST"
-        left={<LinkButton to="/">홈</LinkButton>}
-      ></Header>
+      <Header title="tODOLIST" left={homeLink}></Header>
       <TodoContext value={todoList}>
         <TodoActionsContext value={actions}>
           <div className="flex-1 flex flex-col gap-4 items-center">

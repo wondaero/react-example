@@ -1,14 +1,12 @@
 @layer components {
   .header {
-    margin-bottom: 20px;
-    & > div {
+    & > .base {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 8px;
       padding-inline: 8px;
     }
-
     h1 {
       background: linear-gradient(to top, #ffcf00 16px, transparent 0);
       line-height: 1;

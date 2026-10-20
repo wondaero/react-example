@@ -1,7 +1,7 @@
 import Button from "../Button";
 import Checkbox from "../Checkbox";
 
-import { useContext, useRef } from "react";
+import { useContext, useRef, type CSSProperties } from "react";
 import type { Todo } from "../../types/todo";
 import { TodoContext, TodoActionsContext } from "../../TodoListPage";
 
@@ -12,9 +12,6 @@ const dateParse = (d: string | number) => {
     year: "numeric",
     month: "2-digit",
     day: "2-digit",
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: true,
   });
 };
 
@@ -36,22 +33,28 @@ function TodoItem({ data }: { data: Todo }) {
   };
 
   return (
-    <li ref={todoItem} className="flex items-center gap-2">
-      <Checkbox
-        // title={`[${dateParse(data.date)}] ${data.title}`}
-        title={`${data.title}`}
-        checked={data.completed}
-        className="flex-1"
-        onChange={() => {
-          TodoActions.toggleTodo(data.id);
-        }}
-        effect={true}
-      ></Checkbox>
+    <li ref={todoItem} className="flex items-center gap-2 justify-between">
+      <div className="flex items-center">
+        <Checkbox
+          // title={`[${dateParse(data.date)}] ${data.title}`}
+          title={`${data.title}`}
+          checked={data.completed}
+          className="flex-1"
+          onChange={() => {
+            TodoActions.toggleTodo(data.id);
+          }}
+          effect={true}
+        ></Checkbox>
+        <span className="text-[gray] text-xs ml-1">
+          [{dateParse(data.date)}]
+        </span>
+      </div>
       <Button
         onClick={() => {
           delEffect(data.id);
         }}
-        className="bg-[red] text-[#fff]"
+        className="text-[#fff]"
+        style={{ "--btn-bg": "red" } as CSSProperties}
       >
         삭제
       </Button>

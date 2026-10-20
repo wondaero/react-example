@@ -1,5 +1,7 @@
 :root {
   --color1: #ffcf00;
+  --btn-shadow1: #a59016;
+  --border-color1: #ccc;
 }
 body {
   &:after {

@@ -9,10 +9,11 @@ type HeaderProps = {
 };
 
 function Header({ children, title, left, right }: HeaderProps) {
+  console.log(33333);
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} ${children ? "" : "mb-5"}`}>
       {children ?? (
-        <div>
+        <div className={styles.base}>
           <div>{left}</div>
           <h1>{title}</h1>
           <div>{right}</div>

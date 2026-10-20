@@ -1,6 +1,6 @@
 .inputSearch {
   border: 0;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 1px solid var(--border-color1);
   border-radius: 0;
 
   &:focus {

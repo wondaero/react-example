@@ -21,7 +21,11 @@ function Checkbox({ checked, title, className, onChange, effect }: InputProps) {
       ></input>
       <span></span>
       {title && (
-        <strong className={effect ? styles.effect1 : undefined}>{title}</strong>
+        <strong
+          className={`text-[#000] ${effect ? styles.effect1 : undefined}`}
+        >
+          {title}
+        </strong>
       )}
     </label>
   );
