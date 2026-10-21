@@ -10,7 +10,7 @@ type LinkButtonProps = {
 
 function LinkButton({ to, children, className }: LinkButtonProps) {
   return (
-    <Link to={to} className={`${styles.btn} ${className}`}>
+    <Link to={to} className={`${styles.btn} ${className ?? ""}`}>
       {children}
     </Link>
   );

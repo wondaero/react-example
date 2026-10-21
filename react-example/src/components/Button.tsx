@@ -13,7 +13,7 @@ function Button({ type, children, onClick, className, style }: ButtonProps) {
   return (
     <button
       type={type}
-      className={`${styles.btn} ${className}`}
+      className={`${styles.btn} ${className ?? ""}`}
       onClick={onClick}
       style={style}
     >

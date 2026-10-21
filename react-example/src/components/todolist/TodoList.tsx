@@ -65,6 +65,7 @@ function TodoItem({ data }: { data: Todo }) {
 const normalize = (s: string) => s.replace(/\s/g, "").toLowerCase();
 
 function TodoList({ keyword = "" }: { keyword?: string }) {
+  console.log("투두리스트");
   const TodoList = useContext(TodoContext);
   const filteredData = TodoList.filter((t) =>
     normalize(t.title).includes(normalize(keyword)),

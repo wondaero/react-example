@@ -12,7 +12,7 @@ type InputProps = {
 function Checkbox({ checked, title, className, onChange, effect }: InputProps) {
   // const [isChked, setIsChked] = useState(false);
   return (
-    <label className={`${styles.chkboxWrapper} ${className || ""}`}>
+    <label className={`${styles.chkboxWrapper} ${className ?? ""}`}>
       <input
         type="checkbox"
         className={`${styles.input}`}

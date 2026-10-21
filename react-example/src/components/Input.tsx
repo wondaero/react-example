@@ -9,9 +9,9 @@ type InputProps = {
   className?: string;
   labelClass?: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
-  onKeyUp?: KeyboardEventHandler<HTMLInputElement>
+  onKeyUp?: KeyboardEventHandler<HTMLInputElement>;
   value?: string;
-  ref?: Ref<HTMLInputElement>
+  ref?: Ref<HTMLInputElement>;
 };
 
 function Button({
@@ -24,7 +24,7 @@ function Button({
   onChange,
   onKeyUp,
   value,
-  ref
+  ref,
 }: InputProps) {
   return (
     <label
@@ -34,7 +34,7 @@ function Button({
       <input
         type={type}
         placeholder={placeholder}
-        className={`${styles.input} ${className || ""}`}
+        className={`${styles.input} ${className ?? ""}`}
         onChange={onChange}
         onKeyUp={onKeyUp}
         value={value}

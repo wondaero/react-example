@@ -2,7 +2,7 @@ import styles from "./CounterViewer.module.css";
 
 type CounterViewerProps = {
   num: number;
-  last: string | null;
+  last: string;
 };
 
 function CounterViewer({ num, last }: CounterViewerProps) {
@@ -14,6 +14,16 @@ function CounterViewer({ num, last }: CounterViewerProps) {
     return fValue + "px";
   };
 
+  const effectClass = (last: string) => {
+    if (last === "0") {
+      return styles.init;
+    } else if (last.startsWith("-")) {
+      return styles.minus;
+    } else {
+      return styles.plus;
+    }
+  };
+
   return (
     <h2
       className={styles.counterViewer}
@@ -21,7 +31,11 @@ function CounterViewer({ num, last }: CounterViewerProps) {
     >
       <strong>
         {num}
-        <span key={num} className={last?.startsWith('-') ? styles.minus : styles.plus}>
+        <span
+          key={num}
+          // className={last?.startsWith("-") ? styles.minus : styles.plus}
+          className={effectClass(last)}
+        >
           {last}
         </span>
       </strong>

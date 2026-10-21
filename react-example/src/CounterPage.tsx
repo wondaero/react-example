@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import "./App.css";
 import Header from "./components/Header";
 import LinkButton from "./components/LinkButton";
@@ -10,8 +10,15 @@ const homeLink = <LinkButton to="/">홈</LinkButton>;
 function CounterPage() {
   const [countState, setCountState] = useState({
     num: 0,
-    last: null,
+    last: "0",
   });
+
+  const handleStep = useCallback((num: number, val: string) => {
+    setCountState((old) => ({
+      num: num === 0 ? num : old.num + num,
+      last: val,
+    }));
+  }, []);
 
   return (
     <>
@@ -20,7 +27,7 @@ function CounterPage() {
         num={countState.num}
         last={countState.last}
       ></CounterViewer>
-      <CounterController handler={setCountState}></CounterController>
+      <CounterController handler={handleStep}></CounterController>
     </>
   );
 }

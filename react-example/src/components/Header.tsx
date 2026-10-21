@@ -9,7 +9,6 @@ type HeaderProps = {
 };
 
 function Header({ children, title, left, right }: HeaderProps) {
-  console.log(33333);
   return (
     <header className={`${styles.header} ${children ? "" : "mb-5"}`}>
       {children ?? (
