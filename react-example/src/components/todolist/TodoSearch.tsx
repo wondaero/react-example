@@ -1,5 +1,6 @@
 import Input from "../Input";
 import styles from "./TodoSearch.module.css";
+import { memo } from 'react';
 
 import { useState, type ChangeEventHandler, type ChangeEvent } from "react";
 import { useDebounceCallback } from "../../hooks/useDebounced";
@@ -7,7 +8,8 @@ import { useDebounceCallback } from "../../hooks/useDebounced";
 function TodoSearch({
   onChange,
 }: {
-  onChange?: ChangeEventHandler<HTMLInputElement>;
+  // onChange?: ChangeEventHandler<HTMLInputElement>;
+  onChange?: (keyword: string) => void;
 }) {
   console.log("투두서치");
 
@@ -16,7 +18,7 @@ function TodoSearch({
   useDebounceCallback(
     keyword,
     () => {
-      console.log("안녕");
+      onChange?.(keyword);
     },
     1000,
   );
@@ -40,4 +42,4 @@ function TodoSearch({
   );
 }
 
-export default TodoSearch;
+export default memo(TodoSearch);

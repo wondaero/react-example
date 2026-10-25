@@ -1,7 +1,7 @@
 import Button from "../Button";
 import Checkbox from "../Checkbox";
 
-import { useContext, useRef, type CSSProperties } from "react";
+import { useContext, useRef, memo, type CSSProperties } from "react";
 import type { Todo } from "../../types/todo";
 import { TodoContext, TodoActionsContext } from "../../TodoListPage";
 
@@ -15,7 +15,7 @@ const dateParse = (d: string | number) => {
   });
 };
 
-function TodoItem({ data }: { data: Todo }) {
+const TodoItem = memo(function({ data }: { data: Todo }) {
   const TodoActions = useContext(TodoActionsContext);
   const todoItem = useRef<HTMLLIElement>(null);
 
@@ -60,7 +60,7 @@ function TodoItem({ data }: { data: Todo }) {
       </Button>
     </li>
   );
-}
+});
 
 const normalize = (s: string) => s.replace(/\s/g, "").toLowerCase();
 

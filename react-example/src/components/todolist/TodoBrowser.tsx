@@ -1,6 +1,8 @@
 import TodoSearch from "./TodoSearch";
 import TodoList from "./TodoList";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { TodoContext } from '../../TodoListPage'
+
 
 function TodoBrowser() {
   const [keyword, setKeyword] = useState<string>("");
@@ -8,8 +10,9 @@ function TodoBrowser() {
 
   return (
     <section className="flex flex-col items-center gap-4 max-w-200 w-full px-2">
-      <TodoSearch onChange={(e) => setKeyword(e.target.value)}></TodoSearch>
-      <TodoList></TodoList>
+      {/* <TodoSearch onChange={(e) => setKeyword(e.target.value)}></TodoSearch> */}
+      <TodoSearch onChange={setKeyword}></TodoSearch>
+      <TodoList keyword={keyword}></TodoList>
     </section>
   );
 }
