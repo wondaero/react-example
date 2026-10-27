@@ -14,6 +14,9 @@ function Home() {
         <LinkButton className={styles.btn} to="/todolist">
           투두리스트
         </LinkButton>
+        <LinkButton className={styles.btn} to="/daily">
+          일기
+        </LinkButton>
       </div>
     </main>
   );

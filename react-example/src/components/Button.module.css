@@ -4,7 +4,7 @@
     background: var(--btn-bg);
     border-radius: 8px;
     padding: 8px 12px;
-    border: 0;
+    /* border: 2px solid color-mix(in oklab, var(--btn-bg), black 40%); */
     cursor: pointer;
     color: #000;
     box-shadow: 0 4px 0 color-mix(in oklab, var(--btn-bg), black 40%);
