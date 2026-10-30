@@ -10,6 +10,8 @@ type ButtonProps = {
 };
 
 function Button({ type, children, onClick, className, style }: ButtonProps) {
+  console.log("버튼", children);
+
   return (
     <button
       type={type}

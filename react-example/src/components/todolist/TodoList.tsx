@@ -15,7 +15,7 @@ const dateParse = (d: string | number) => {
   });
 };
 
-const TodoItem = memo(function({ data }: { data: Todo }) {
+const TodoItem = memo(function ({ data }: { data: Todo }) {
   const TodoActions = useContext(TodoActionsContext);
   const todoItem = useRef<HTMLLIElement>(null);
 
@@ -36,7 +36,6 @@ const TodoItem = memo(function({ data }: { data: Todo }) {
     <li ref={todoItem} className="flex items-center gap-2 justify-between">
       <div className="flex items-center">
         <Checkbox
-          // title={`[${dateParse(data.date)}] ${data.title}`}
           title={`${data.title}`}
           checked={data.completed}
           className="flex-1"
