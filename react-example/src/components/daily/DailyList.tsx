@@ -1,11 +1,11 @@
-import Button from "../Button";
-import Checkbox from "../Checkbox";
 
 import { useContext, useRef, memo, type CSSProperties } from "react";
-import type { Todo } from "../../types/todo";
-import { TodoContext, TodoActionsContext } from "../../TodoListPage";
+import { Link } from "react-router";
 
-import styles from "./TodoList.module.css";
+import type { Daily } from "@/types/daily";
+
+import WeatherIcon from "@/components/WeatherIcon";
+import { DailyContext } from "@/DailyPage";
 
 const dateParse = (d: string | number) => {
   return new Date(d).toLocaleString("ko-KR", {
@@ -15,65 +15,32 @@ const dateParse = (d: string | number) => {
   });
 };
 
-const TodoItem = memo(function ({ data }: { data: Todo }) {
-  const TodoActions = useContext(TodoActionsContext);
-  const todoItem = useRef<HTMLLIElement>(null);
 
-  const delEffect = (id: string) => {
-    if (!window.confirm("삭제할까요?")) return;
-    const el = todoItem.current;
-    if (!el) return;
-    el.classList.add(styles.deleting);
-
-    el.ontransitionend = (e) => {
-      if (e.target !== e.currentTarget) return;
-      if (e.propertyName !== "opacity") return;
-      TodoActions.deleteTodo(id);
-    };
-  };
-
+const DailyItem = memo(function ({ data }: { data: Daily }) {
   return (
-    <li ref={todoItem} className="flex items-center gap-2 justify-between">
-      <div className="flex items-center">
-        <Checkbox
-          title={`${data.title}`}
-          checked={data.completed}
-          className="flex-1"
-          onChange={() => {
-            TodoActions.toggleTodo(data.id);
-          }}
-          effect={true}
-        ></Checkbox>
-        <span className="text-[gray] text-xs ml-1">
-          [{dateParse(data.date)}]
-        </span>
-      </div>
-      <Button
-        onClick={() => {
-          delEffect(data.id);
-        }}
-        className="text-[#fff]"
-        style={{ "--btn-bg": "red" } as CSSProperties}
-      >
-        삭제
-      </Button>
+    <li className="border-b-1 border-[#ccc] p-3">
+      <Link to={'/'} className="flex w-full items-center gap-2">
+        <div className="w-20 flex justify-center mr-2">
+          <WeatherIcon type={data.weather} height={50}></WeatherIcon>
+        </div>
+        <h4 className="flex-1 text-left">{data.title}</h4>
+      </Link>
     </li>
   );
 });
 
-const normalize = (s: string) => s.replace(/\s/g, "").toLowerCase();
 
-function TodoList({ keyword = "" }: { keyword?: string }) {
-  console.log("투두리스트");
-  const TodoList = useContext(TodoContext);
-  const filteredData = TodoList.filter((t) =>
-    normalize(t.title).includes(normalize(keyword)),
-  );
+function DailyList({ keyword = "" }: { keyword?: string }) {
+  const DailyList = useContext(DailyContext);
+  const filteredData = DailyList;
+  // const filteredData = DailyList.filter((t) =>
+  //   normalize(t.title).includes(normalize(keyword)),
+  // );
 
   return filteredData && filteredData.length ? (
     <ul className="flex flex-col gap-2 w-full">
       {filteredData.map((item) => (
-        <TodoItem key={item.id} data={item}></TodoItem>
+        <DailyItem key={item.id} data={item}></DailyItem>
       ))}
     </ul>
   ) : (
@@ -85,4 +52,4 @@ function TodoList({ keyword = "" }: { keyword?: string }) {
   );
 }
 
-export default TodoList;
+export default DailyList;

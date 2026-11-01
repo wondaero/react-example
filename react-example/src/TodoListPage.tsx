@@ -27,6 +27,7 @@ const initTodo = [
     date: Date.now(),
   },
 ];
+
 export const TodoContext = createContext<Todo[]>([]);
 export const TodoActionsContext = createContext<Actions | null>(null);
 

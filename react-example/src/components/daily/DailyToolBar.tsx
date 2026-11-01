@@ -1,9 +1,11 @@
 import Button from "../Button";
 import Toggle from "../Toggle";
-import { memo } from "react";
+import { memo, type CSSProperties } from "react";
 
 import { useState, type ChangeEventHandler, type ChangeEvent } from "react";
-import { useDebounceCallback } from "../../hooks/useDebounced";
+import { useDebounceCallback } from "@/hooks/useDebounced";
+import { getWeather } from "@/components/Weather";
+import WeatherIcon from "@/components/WeatherIcon";
 
 function DailyToolBar({
   onChange,
@@ -27,13 +29,19 @@ function DailyToolBar({
     setKeyword(e.target.value);
   };
 
-  const toggleData = [{ title: "맑음" }, { title: "흐림" }, { title: "비" }];
+  const toggleData = [1,2,3,4].map(n => ({
+    title: <WeatherIcon
+      type={n}
+      height={20}
+      className="inline-block align-center"
+    ></WeatherIcon>,
+    callback: () => {}
+  }));
 
   return (
     <section className="flex items-center justify-between w-full">
       <div>
-        <Toggle className="mr-4" data={toggleData}></Toggle>
-        {/* <Select></Select> */}
+        <Toggle className="border-1 w-12 text-center" data={toggleData} style={{ "--btn-bg": "#fff" } as CSSProperties}></Toggle>
       </div>
       <Button>추가</Button>
     </section>
