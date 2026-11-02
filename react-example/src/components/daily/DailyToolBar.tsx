@@ -2,10 +2,11 @@ import Button from "../Button";
 import Toggle from "../Toggle";
 import { memo, type CSSProperties } from "react";
 
-import { useState, type ChangeEventHandler, type ChangeEvent } from "react";
+import { useState, useContext, type ChangeEventHandler, type ChangeEvent } from "react";
 import { useDebounceCallback } from "@/hooks/useDebounced";
 import { getWeather } from "@/components/Weather";
 import WeatherIcon from "@/components/WeatherIcon";
+import { DailyActionsContext } from "@/DailyPage";
 
 function DailyToolBar({
   onChange,
@@ -16,6 +17,8 @@ function DailyToolBar({
   console.log("데일리툴바");
 
   const [keyword, setKeyword] = useState<string>("");
+
+  const dailyAction = useContext(DailyActionsContext)
 
   useDebounceCallback(
     keyword,
@@ -43,7 +46,7 @@ function DailyToolBar({
       <div>
         <Toggle className="border-1 w-12 text-center" data={toggleData} style={{ "--btn-bg": "#fff" } as CSSProperties}></Toggle>
       </div>
-      <Button>추가</Button>
+      <Button onClick={dailyAction.onCreate}>추가</Button>
     </section>
   );
 }

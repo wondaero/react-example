@@ -1,10 +1,10 @@
 import DailyToolBar from "./DailyToolBar";
 import DailyList from "./DailyList";
 import { useState, useContext } from "react";
-import { TodoContext } from "../../TodoListPage";
 
 function DailyBrowser() {
   const [keyword, setKeyword] = useState<string>("");
+  
   console.log("데일리브라우저");
 
   return (
