@@ -3,48 +3,17 @@ import Header from "@/components/Header";
 import Button from "@/components/Button";
 import LinkButton from "@/components/LinkButton";
 
-import { useState, createContext, useMemo, useReducer } from "react";
+import { useState, useContext, useReducer } from "react";
 
 import DailyBrowser from "@/components/daily/DailyBrowser";
 
 import type { Daily, Actions } from "@/types/daily";
 
-const initDaily = [
-  {
-    id: crypto.randomUUID(),
-    weather: 1,
-    date: Date.now(),
-    title: "테스트 일기1",
-    content: "테스트 일기입니다1.",
-  },
-  {
-    id: crypto.randomUUID(),
-    weather: 2,
-    date: Date.now(),
-    title: "테스트 일기2",
-    content: "테스트 일기입니다2.",
-  },
-  {
-    id: crypto.randomUUID(),
-    weather: 3,
-    date: Date.now(),
-    title: "테스트 일기3",
-    content: "테스트 일기입니다3.",
-  },
-  {
-    id: crypto.randomUUID(),
-    weather: 4,
-    date: Date.now(),
-    title: "테스트 일기4",
-    content: "테스트 일기입니다4.",
-  },
-];
 
 const homeLink = <LinkButton to="/">홈</LinkButton>;
 const todayBtn = <Button>오늘</Button>;
 
-export const DailyContext = createContext<Daily[]>([]);
-export const DailyActionsContext = createContext<Actions[]>([]);
+
 
 function reducer(state, action) {
   switch (action.type) {
@@ -59,8 +28,9 @@ function reducer(state, action) {
 }
 
 function DailyPage() {
-  const [daily, dispatch] = useReducer(reducer, initDaily);
-  const [orgDailyList, setOrgDailyList] = useState<Daily[]>(initDaily);
+  const DailyContext = useContext<Daily[]>([]);
+  const DailyActionsContext = useContext<Actions[]>([]);
+
 
   const onCreate = (data) => {
     dispatch({
