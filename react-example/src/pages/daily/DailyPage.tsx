@@ -95,12 +95,6 @@ function DailyPage() {
 
   return (
     <>
-      <Header title="dAILY" left={homeLink} right={todayBtn}></Header>
-      <section className="flex items-center justify-center p-4">
-        <Button>이전</Button>
-        <h3 className="flex-1 max-w-50 bg-[red]">{}날짜</h3>
-        <Button>다음</Button>
-      </section>
       <DailyContext value={daily}>
         <DailyActionsContext value={actions}>
           <DailyBrowser></DailyBrowser>

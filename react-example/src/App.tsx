@@ -1,8 +1,10 @@
 import "./App.css";
 import Home from "./Home";
-import CounterPage from "./CounterPage";
-import TodoListPage from "./TodoListPage";
-import DailyPage from "./DailyPage";
+import CounterPage from "@/pages/counter/CounterPage";
+import TodoListPage from "@/pages/todolist/TodoListPage";
+import DailyPage from "@/pages/daily/DailyPage";
+import DailyListPage from "@/pages/daily/DailyListPage";
+import DailyItemPage from "@/pages/daily/DailyItemPage";
 import { BrowserRouter, Routes, Route } from "react-router";
 
 function App() {
@@ -12,7 +14,13 @@ function App() {
         <Route path="/" element={<Home />}></Route>
         <Route path="/todolist" element={<TodoListPage />}></Route>
         <Route path="/count" element={<CounterPage />}></Route>
-        <Route path="/daily" element={<DailyPage />}></Route>
+        <Route path="/daily" element={<DailyPage />}>
+          <Route index element={<DailyListPage />}></Route>
+          <Route path="new" element={<DailyItemPage />}></Route>
+          <Route path=":id" element={<DailyItemPage />}></Route>
+          <Route path=":id/edit" element={<DailyItemPage />}></Route>
+
+        </Route>
       </Routes>
     </BrowserRouter>
   );
