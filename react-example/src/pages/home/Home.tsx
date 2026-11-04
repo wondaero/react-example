@@ -1,7 +1,7 @@
-import "./App.css";
-import Header from "./components/Header";
-import LinkButton from "./components/LinkButton";
-import styles from "./components/Button.module.css";
+import "@/App.css";
+import Header from "@/components/Header";
+import LinkButton from "@/components/LinkButton";
+import styles from "@/components/Button.module.css";
 
 function Home() {
   return (

@@ -1,9 +1,9 @@
-import Button from "../Button";
-import Checkbox from "../Checkbox";
+import Button from "@/components/Button";
+import Checkbox from "@/components/Checkbox";
 
 import { useContext, useRef, memo, type CSSProperties } from "react";
-import type { Todo } from "../../types/todo";
-import { TodoContext, TodoActionsContext } from "../../TodoListPage";
+import type { Todo } from "@/types/todo";
+import { TodoContext, TodoActionsContext } from "@/pages/todolist/TodoListPage";
 
 import styles from "./TodoList.module.css";
 

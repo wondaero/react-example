@@ -1,11 +1,11 @@
-import "./App.css";
+import "@/App.css";
 import { useState, createContext, useMemo } from "react";
-import Header from "./components/Header";
-import LinkButton from "./components/LinkButton";
-import TodoAddForm from "./components/todolist/TodoAddForm";
-import TodoBrowser from "./components/todolist/TodoBrowser";
+import Header from "@/components/Header";
+import LinkButton from "@/components/LinkButton";
+import TodoAddForm from "@/components/todolist/TodoAddForm";
+import TodoBrowser from "@/components/todolist/TodoBrowser";
 
-import type { Todo, Actions } from "./types/todo";
+import type { Todo, Actions } from "@/types/todo";
 
 const initTodo = [
   {

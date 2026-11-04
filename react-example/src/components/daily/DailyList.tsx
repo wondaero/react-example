@@ -5,7 +5,7 @@ import { Link } from "react-router";
 import type { Daily } from "@/types/daily";
 
 import WeatherIcon from "@/components/WeatherIcon";
-import { DailyContext } from "@/DailyPage";
+import { DailyContext } from "@/pages/daily/DailyPage";
 
 const dateParse = (d: string | number) => {
   return new Date(d).toLocaleString("ko-KR", {

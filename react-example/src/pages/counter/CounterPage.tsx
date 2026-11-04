@@ -1,9 +1,9 @@
 import { useState, useCallback } from "react";
-import "./App.css";
-import Header from "./components/Header";
-import LinkButton from "./components/LinkButton";
-import CounterViewer from "./components/counter/CounterViewer";
-import CounterController from "./components/counter/CounterController";
+import "@/App.css";
+import Header from "@/components/Header";
+import LinkButton from "@/components/LinkButton";
+import CounterViewer from "@/components/counter/CounterViewer";
+import CounterController from "@/components/counter/CounterController";
 
 const homeLink = <LinkButton to="/">홈</LinkButton>;
 

@@ -1,7 +1,7 @@
 import TodoSearch from "./TodoSearch";
 import TodoList from "./TodoList";
 import { useState, useContext } from "react";
-import { TodoContext } from '../../TodoListPage'
+import { TodoContext } from '@/pages/todolist/TodoListPage'
 
 
 function TodoBrowser() {

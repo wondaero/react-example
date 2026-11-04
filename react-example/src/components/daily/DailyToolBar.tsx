@@ -1,12 +1,12 @@
-import Button from "../Button";
-import Toggle from "../Toggle";
+import Button from "@/components/Button";
+import Toggle from "@/components/Toggle";
 import { memo, type CSSProperties } from "react";
 
 import { useState, useContext, type ChangeEventHandler, type ChangeEvent } from "react";
 import { useDebounceCallback } from "@/hooks/useDebounced";
 import { getWeather } from "@/components/Weather";
 import WeatherIcon from "@/components/WeatherIcon";
-import { DailyActionsContext } from "@/DailyPage";
+import { DailyActionsContext } from "@/pages/daily/DailyPage";
 
 function DailyToolBar({
   onChange,

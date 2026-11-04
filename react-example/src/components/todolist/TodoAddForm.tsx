@@ -1,7 +1,7 @@
-import Button from "../Button";
-import Input from "../Input";
+import Button from "@/components/Button";
+import Input from "@/components/Input";
 import { useState, useContext, useRef } from "react";
-import { TodoActionsContext } from "../../TodoListPage";
+import { TodoActionsContext } from "@/pages/todolist/TodoListPage";
 
 function TodoAddForm() {
   const TodoActions = useContext(TodoActionsContext);

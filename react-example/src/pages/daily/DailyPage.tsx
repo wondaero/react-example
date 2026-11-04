@@ -1,13 +1,13 @@
-import "./App.css";
-import Header from "./components/Header";
-import Button from "./components/Button";
-import LinkButton from "./components/LinkButton";
+import "@/App.css";
+import Header from "@/components/Header";
+import Button from "@/components/Button";
+import LinkButton from "@/components/LinkButton";
 
 import { useState, createContext, useMemo, useReducer } from "react";
 
-import DailyBrowser from "./components/daily/DailyBrowser";
+import DailyBrowser from "@/components/daily/DailyBrowser";
 
-import type { Daily, Actions } from "./types/daily";
+import type { Daily, Actions } from "@/types/daily";
 
 const initDaily = [
   {
@@ -15,28 +15,28 @@ const initDaily = [
     weather: 1,
     date: Date.now(),
     title: "테스트 일기1",
-    content: '테스트 일기입니다1.',
+    content: "테스트 일기입니다1.",
   },
   {
     id: crypto.randomUUID(),
     weather: 2,
     date: Date.now(),
     title: "테스트 일기2",
-    content: '테스트 일기입니다2.',
+    content: "테스트 일기입니다2.",
   },
   {
     id: crypto.randomUUID(),
     weather: 3,
     date: Date.now(),
     title: "테스트 일기3",
-    content: '테스트 일기입니다3.',
+    content: "테스트 일기입니다3.",
   },
   {
     id: crypto.randomUUID(),
     weather: 4,
     date: Date.now(),
     title: "테스트 일기4",
-    content: '테스트 일기입니다4.',
+    content: "테스트 일기입니다4.",
   },
 ];
 
@@ -48,15 +48,15 @@ export const DailyActionsContext = createContext<Actions[]>([]);
 
 function reducer(state, action) {
   switch (action.type) {
-    case 'create':
+    case "create":
+      console.log(3222);
       return [action.data, ...state];
-    case 'remove':
+    case "remove":
       return [action.data, ...state];
-    case 'update':
+    case "update":
       return [action.data, ...state];
   }
 }
-
 
 function DailyPage() {
   const [daily, dispatch] = useReducer(reducer, initDaily);
@@ -64,37 +64,34 @@ function DailyPage() {
 
   const onCreate = (data) => {
     dispatch({
-      type: 'create',
+      type: "create",
       data: {
         id: crypto.randomUUID(),
         weather: 1,
-        title: '추가일기',
-        content: '추가 일기입니다1',
+        title: "추가일기",
+        content: "추가 일기입니다1",
         date: Date.now(),
-      }
-    })
-  }
-  const onDelete = (data) => {
-
-  }
-  const onUpdate = () => {
-
-  }
+      },
+    });
+  };
+  const onDelete = (data) => {};
+  const onUpdate = () => {};
 
   const actions = {
     onCreate: (data: Daily) => {
+      console.log(333);
       dispatch({
-        type: 'create',
+        type: "create",
         data: {
           id: crypto.randomUUID(),
           weather: 1,
-          title: '추가일기',
-          content: '추가 일기입니다1',
+          title: "추가일기",
+          content: "추가 일기입니다1",
           date: Date.now(),
-        }
-      })
-    }
-  }
+        },
+      });
+    },
+  };
 
   return (
     <>
@@ -104,9 +101,9 @@ function DailyPage() {
         <h3 className="flex-1 max-w-50 bg-[red]">{}날짜</h3>
         <Button>다음</Button>
       </section>
-      <DailyContext value={orgDailyList}>
+      <DailyContext value={daily}>
         <DailyActionsContext value={actions}>
-          <DailyBrowser ></DailyBrowser>
+          <DailyBrowser></DailyBrowser>
         </DailyActionsContext>
       </DailyContext>
     </>
