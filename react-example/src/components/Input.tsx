@@ -7,20 +7,20 @@ type InputProps = {
   type?: string;
   placeholder?: string;
   className?: string;
-  labelClass?: string;
+  wrapperClass?: string;
   onChange?: ChangeEventHandler<HTMLInputElement>;
   onKeyUp?: KeyboardEventHandler<HTMLInputElement>;
   value?: string;
   ref?: Ref<HTMLInputElement>;
 };
 
-function Button({
+function Input({
   label,
   labelPosition,
   type,
   placeholder,
   className,
-  labelClass,
+  wrapperClass,
   onChange,
   onKeyUp,
   value,
@@ -28,7 +28,7 @@ function Button({
 }: InputProps) {
   return (
     <label
-      className={`${styles.inputWrapper} ${labelPosition === "top" && styles.withTopLabel} ${labelClass}`}
+      className={`${styles.inputWrapper} ${labelPosition === "top" && styles.withTopLabel} ${wrapperClass}`}
     >
       {label && <strong>{label}</strong>}
       <input
@@ -44,4 +44,4 @@ function Button({
   );
 }
 
-export default Button;
+export default Input;

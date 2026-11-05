@@ -1,7 +1,7 @@
 import Button from "@/components/Button";
 import Checkbox from "@/components/Checkbox";
 
-import { useContext, useRef, memo, type CSSProperties } from "react";
+import { useContext, useRef, memo } from "react";
 import type { Todo } from "@/types/todo";
 import { TodoContext, TodoActionsContext } from "@/pages/todolist/TodoListPage";
 
@@ -52,8 +52,8 @@ const TodoItem = memo(function ({ data }: { data: Todo }) {
         onClick={() => {
           delEffect(data.id);
         }}
-        className="text-[#fff]"
-        style={{ "--btn-bg": "red" } as CSSProperties}
+        textColor="#fff"
+        bg="#f00"
       >
         삭제
       </Button>

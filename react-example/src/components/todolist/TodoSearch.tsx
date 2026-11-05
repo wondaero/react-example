@@ -36,7 +36,7 @@ function TodoSearch({
         placeholder="검색어를 입력해주세요."
         // onChange={onChange}
         onChange={handleKeyword}
-        labelClass="w-full"
+        wrapperClass="w-full"
       />
     </section>
   );
