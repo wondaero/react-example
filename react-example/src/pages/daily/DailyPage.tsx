@@ -3,6 +3,8 @@ import Header from "@/components/Header";
 import Button from "@/components/Button";
 import LinkButton from "@/components/LinkButton";
 
+import { Outlet } from "react-router";
+
 import { useState, createContext, useMemo, useReducer } from "react";
 
 import DailyBrowser from "@/components/daily/DailyBrowser";
@@ -49,7 +51,6 @@ export const DailyActionsContext = createContext<Actions[]>([]);
 function reducer(state, action) {
   switch (action.type) {
     case "create":
-      console.log(3222);
       return [action.data, ...state];
     case "remove":
       return [action.data, ...state];
@@ -62,24 +63,11 @@ function DailyPage() {
   const [daily, dispatch] = useReducer(reducer, initDaily);
   const [orgDailyList, setOrgDailyList] = useState<Daily[]>(initDaily);
 
-  const onCreate = (data) => {
-    dispatch({
-      type: "create",
-      data: {
-        id: crypto.randomUUID(),
-        weather: 1,
-        title: "추가일기",
-        content: "추가 일기입니다1",
-        date: Date.now(),
-      },
-    });
-  };
   const onDelete = (data) => {};
   const onUpdate = () => {};
 
   const actions = {
     onCreate: (data: Daily) => {
-      console.log(333);
       dispatch({
         type: "create",
         data: {
@@ -95,9 +83,10 @@ function DailyPage() {
 
   return (
     <>
+      <Header title="dAILY" left={homeLink} right={todayBtn}></Header>
       <DailyContext value={daily}>
         <DailyActionsContext value={actions}>
-          <DailyBrowser></DailyBrowser>
+          <Outlet />
         </DailyActionsContext>
       </DailyContext>
     </>
