@@ -17,8 +17,9 @@ function App() {
         <Route path="/count" element={<CounterPage />}></Route>
         <Route path="/daily" element={<DailyPage />}>
           <Route index element={<DailyListPage />} />
-          <Route path="new" element={<DailyItemPage />} />
-          <Route path=":id" element={<DailyItemPage />} />
+          <Route path="new" element={<DailyItemPage mode="new" />} />
+          <Route path=":id" element={<DailyItemPage mode="view" />} />
+          <Route path=":id/edit" element={<DailyItemPage mode="edit" />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -52,7 +52,7 @@ const TodoItem = memo(function ({ data }: { data: Todo }) {
         onClick={() => {
           delEffect(data.id);
         }}
-        textColor="#fff"
+        color="#fff"
         bg="#f00"
       >
         삭제

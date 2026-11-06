@@ -7,18 +7,26 @@ type ButtonProps = {
   className?: string;
   type?: "submit" | "button" | "reset";
   style?: CSSProperties;
-  bg?: string,
-  textColor?: string
+  bg?: string;
+  color?: string;
 };
 
-function Button({ type, children, onClick, className, bg, textColor, style }: ButtonProps) {
+function Button({
+  type,
+  children,
+  onClick,
+  className,
+  bg,
+  color,
+  style,
+}: ButtonProps) {
   console.log("버튼", children);
 
   const combiStyle = {
     ...(bg && { "--btn-bg": bg }),
-    ...(textColor && { "--btn-color": textColor }),
-    ...style
-  }
+    ...(color && { "--btn-color": color }),
+    ...style,
+  };
 
   return (
     <button
