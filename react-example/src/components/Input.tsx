@@ -12,6 +12,7 @@ type InputProps = {
   onKeyUp?: KeyboardEventHandler<HTMLInputElement>;
   value?: string;
   ref?: Ref<HTMLInputElement>;
+  readonly?: boolean;
 };
 
 function Input({
@@ -25,6 +26,7 @@ function Input({
   onKeyUp,
   value,
   ref,
+  readonly,
 }: InputProps) {
   return (
     <label
@@ -39,6 +41,7 @@ function Input({
         onKeyUp={onKeyUp}
         value={value}
         ref={ref}
+        readOnly={readonly}
       ></input>
     </label>
   );

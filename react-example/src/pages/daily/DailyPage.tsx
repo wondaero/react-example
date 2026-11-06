@@ -48,35 +48,42 @@ const todayBtn = <Button>오늘</Button>;
 export const DailyContext = createContext<Daily[]>([]);
 export const DailyActionsContext = createContext<Actions[]>([]);
 
-function reducer(state, action) {
+type DailyAction = 
+| {type: 'create'; data: Daily}
+| {type: 'update'; data: Daily}
+| {type: 'delete'; data: string}
+
+function reducer(state: Daily[], action: DailyAction): Daily[]{
   switch (action.type) {
     case "create":
       return [action.data, ...state];
-    case "remove":
-      return [action.data, ...state];
+    case "delete":
+      return state.filter((old: Daily) => old.id !== action.data);
     case "update":
-      return [action.data, ...state];
+      return state.map((old: Daily) => old.id === action.data.id ? action.data : old);
   }
 }
 
 function DailyPage() {
   const [daily, dispatch] = useReducer(reducer, initDaily);
-  const [orgDailyList, setOrgDailyList] = useState<Daily[]>(initDaily);
-
-  const onDelete = (data) => {};
-  const onUpdate = () => {};
 
   const actions = {
     onCreate: (data: Daily) => {
       dispatch({
         type: "create",
-        data: {
-          id: crypto.randomUUID(),
-          weather: 1,
-          title: "추가일기",
-          content: "추가 일기입니다1",
-          date: Date.now(),
-        },
+        data: data,
+      });
+    },
+    onUpdate: (data: Daily) => {
+      dispatch({
+        type: "update",
+        data: data,
+      });
+    },
+    onDelete: (delId: string) => {
+      dispatch({
+        type: "delete",
+        data: delId,
       });
     },
   };

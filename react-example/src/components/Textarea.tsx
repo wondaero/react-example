@@ -12,7 +12,8 @@ type TextareaProps = {
   value?: string;
   ref?: Ref<HTMLTextAreaElement>;
   height?: number;
-  resize?: boolean
+  resize?: boolean;
+  readonly?: boolean;
 };
 
 function Textarea({
@@ -24,6 +25,7 @@ function Textarea({
   onChange,
   value,
   ref,
+  readonly,
 }: TextareaProps) {
   return (
     <label
@@ -36,6 +38,7 @@ function Textarea({
         onChange={onChange}
         value={value}
         ref={ref}
+        readOnly={readonly}
       ></textarea>
     </label>
   );

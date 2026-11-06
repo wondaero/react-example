@@ -19,7 +19,7 @@ const dateParse = (d: string | number) => {
 const DailyItem = memo(function ({ data }: { data: Daily }) {
   return (
     <li className="border-b-1 border-[#ccc] p-3">
-      <Link to={'/'} className="flex w-full items-center gap-2">
+      <Link to={data.id} className="flex w-full items-center gap-2">
         <div className="w-20 flex justify-center mr-2">
           <WeatherIcon type={data.weather} height={50}></WeatherIcon>
         </div>
