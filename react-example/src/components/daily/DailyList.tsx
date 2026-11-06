@@ -8,6 +8,8 @@ import useDailyfilter  from "@/hooks/useDailyFilter";
 import WeatherIcon from "@/components/WeatherIcon";
 import { DailyContext } from "@/pages/daily/DailyPage";
 
+import { getYYYYMMDD, getYYYYMM } from '@/utils/date';
+
 const dateParse = (d: string | number) => {
   return new Date(d).toLocaleString("ko-KR", {
     year: "numeric",
@@ -38,7 +40,7 @@ function DailyList({ keyword = "" }: { keyword?: string }) {
   const { filter } = useDailyfilter();
 
   const filteredData = DailyList.filter(d => {
-    return (filter.month === d.date) && filter.weather === 0 || d.weather === filter.weather
+    return (getYYYYMM(filter.month) === getYYYYMM(d.date)) && filter.weather === 0 || d.weather === filter.weather
   });
 
   return filteredData && filteredData.length ? (
