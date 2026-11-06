@@ -12,13 +12,7 @@ import { DailyContext, DailyActionsContext } from "@/pages/daily/DailyPage";
 
 import type { Daily, Actions } from "@/types/daily";
 
-const getYYYYMMDD = (timestamp: number | "") => {
-  const d = new Date(timestamp);
-  const yyyy = d.getFullYear();
-  const mm = String(d.getMonth() + 1).padStart(2, "0");
-  const dd = String(d.getDate()).padStart(2, "0");
-  return `${yyyy}-${mm}-${dd}`;
-};
+import { getYYYYMMDD } from '@/utils/date'; 
 
 type Props = { mode: "new" | "view" | "edit" };
 

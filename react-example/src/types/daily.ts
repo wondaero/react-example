@@ -1,3 +1,4 @@
+export type WeatherFilter = 0 | 1 | 2 | 3 | 4;
 export type Daily = {
     id: string,
     title: string,
@@ -7,7 +8,12 @@ export type Daily = {
 }
 
 export type Actions = {
-    onCreate: (Daily) => void
+    onCreate: (daily: Daily) => void
     onDelete: (id: string) => void
-    onUpdate: (id: string, Daily) => void
+    onUpdate: (daily: Daily) => void
+}
+
+export type DailyFilter = {
+    weather: WeatherFilter,
+    month: number
 }

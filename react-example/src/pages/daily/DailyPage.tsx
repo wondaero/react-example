@@ -5,11 +5,11 @@ import LinkButton from "@/components/LinkButton";
 
 import { Outlet } from "react-router";
 
-import { useState, createContext, useMemo, useReducer } from "react";
+import { useState, createContext, useMemo, useReducer, type Dispatch, type SetStateAction } from "react";
 
 import DailyBrowser from "@/components/daily/DailyBrowser";
 
-import type { Daily, Actions } from "@/types/daily";
+import type { Daily, Actions, WeatherFilter, DailyFilter } from "@/types/daily";
 
 const initDaily = [
   {
@@ -46,7 +46,11 @@ const homeLink = <LinkButton to="/">홈</LinkButton>;
 const todayBtn = <Button>오늘</Button>;
 
 export const DailyContext = createContext<Daily[]>([]);
-export const DailyActionsContext = createContext<Actions[]>([]);
+export const DailyActionsContext = createContext<Actions | null>(null);
+export const DailyFilterContext = createContext<{
+  filter: DailyFilter;
+  setFilter: Dispatch<SetStateAction<DailyFilter>>;
+} | null>(null);
 
 type DailyAction = 
 | {type: 'create'; data: Daily}
@@ -88,14 +92,22 @@ function DailyPage() {
     },
   };
 
+  const [filter, setFilter] = useState<DailyFilter>({
+    weather: 0,
+    month: Date.now()
+  });
+  const filterValue = useMemo(() => ({filter, setFilter}), [filter]);
+
   return (
     <>
       <Header title="dAILY" left={homeLink} right={todayBtn}></Header>
-      <DailyContext value={daily}>
-        <DailyActionsContext value={actions}>
-          <Outlet />
-        </DailyActionsContext>
-      </DailyContext>
+      <DailyFilterContext value={filterValue}>
+        <DailyContext value={daily}>
+          <DailyActionsContext value={actions}>
+            <Outlet />
+          </DailyActionsContext>
+        </DailyContext>
+      </DailyFilterContext>
     </>
   );
 }

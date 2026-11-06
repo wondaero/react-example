@@ -3,6 +3,7 @@ import { useContext, useRef, memo, type CSSProperties } from "react";
 import { Link } from "react-router";
 
 import type { Daily } from "@/types/daily";
+import useDailyfilter  from "@/hooks/useDailyFilter";
 
 import WeatherIcon from "@/components/WeatherIcon";
 import { DailyContext } from "@/pages/daily/DailyPage";
@@ -24,6 +25,7 @@ const DailyItem = memo(function ({ data }: { data: Daily }) {
           <WeatherIcon type={data.weather} height={50}></WeatherIcon>
         </div>
         <h4 className="flex-1 text-left">{data.title}</h4>
+        <span>{dateParse(data.date)}</span>
       </Link>
     </li>
   );
@@ -32,10 +34,12 @@ const DailyItem = memo(function ({ data }: { data: Daily }) {
 
 function DailyList({ keyword = "" }: { keyword?: string }) {
   const DailyList = useContext(DailyContext);
-  const filteredData = DailyList;
-  // const filteredData = DailyList.filter((t) =>
-  //   normalize(t.title).includes(normalize(keyword)),
-  // );
+  // const DailyFilter = useContext(DailyFilterContext);
+  const { filter } = useDailyfilter();
+
+  const filteredData = DailyList.filter(d => {
+    return (filter.month === d.date) && filter.weather === 0 || d.weather === filter.weather
+  });
 
   return filteredData && filteredData.length ? (
     <ul className="flex flex-col gap-2 w-full">

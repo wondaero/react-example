@@ -11,7 +11,8 @@ import {
 import { useDebounceCallback } from "@/hooks/useDebounced";
 import { getWeather } from "@/components/Weather";
 import WeatherIcon from "@/components/WeatherIcon";
-import { DailyActionsContext } from "@/pages/daily/DailyPage";
+import { DailyActionsContext, DailyFilterContext } from "@/pages/daily/DailyPage";
+import type { WeatherFilter } from '@/types/daily'
 
 function DailyToolBar({
   onChange,
@@ -20,6 +21,7 @@ function DailyToolBar({
   onChange?: (keyword: string) => void;
 }) {
   console.log("데일리툴바");
+  const DailyFilter = useContext(DailyFilterContext);
 
   const [keyword, setKeyword] = useState<string>("");
 
@@ -37,22 +39,30 @@ function DailyToolBar({
     setKeyword(e.target.value);
   };
 
-  const toggleData = [1, 2, 3, 4].map((n) => ({
-    title: (
+  const weathers: WeatherFilter[] = [0, 1, 2, 3, 4];
+  const toggleData = weathers.map((n) => ({
+    title: n === 0 ? (
+      <span className="text-xs">날씨 필터</span>
+    ) : (
       <WeatherIcon
         type={n}
         height={20}
         className="inline-block align-center"
       ></WeatherIcon>
     ),
-    callback: () => {},
+    callback: () => {DailyFilter?.setFilter((prev) => {
+      return {
+        ...prev,
+        weather: n
+      }
+    })},
   }));
 
   return (
     <section className="flex items-center justify-between w-full">
       <div>
         <Toggle
-          className="border-1 w-12 text-center"
+          className="border-1 w-20 h-11 inline-flex items-center justify-center"
           data={toggleData}
           style={{ "--btn-bg": "#fff" } as CSSProperties}
         ></Toggle>
