@@ -10,15 +10,6 @@ import { DailyContext } from "@/pages/daily/DailyPage";
 
 import { getYYYYMMDD, getYYYYMM } from '@/utils/date';
 
-const dateParse = (d: string | number) => {
-  return new Date(d).toLocaleString("ko-KR", {
-    year: "numeric",
-    month: "2-digit",
-    day: "2-digit",
-  });
-};
-
-
 const DailyItem = memo(function ({ data }: { data: Daily }) {
   return (
     <li className="border-b-1 border-[#ccc] p-3">
@@ -27,7 +18,7 @@ const DailyItem = memo(function ({ data }: { data: Daily }) {
           <WeatherIcon type={data.weather} height={50}></WeatherIcon>
         </div>
         <h4 className="flex-1 text-left">{data.title}</h4>
-        <span>{dateParse(data.date)}</span>
+        <span>{getYYYYMMDD(data.date)}</span>
       </Link>
     </li>
   );

@@ -35,10 +35,6 @@ function DailyToolBar({
     1000,
   );
 
-  const handleKeyword = (e: ChangeEvent<HTMLInputElement>) => {
-    setKeyword(e.target.value);
-  };
-
   const weathers: WeatherFilter[] = [0, 1, 2, 3, 4];
   const toggleData = weathers.map((n) => ({
     title: n === 0 ? (
@@ -51,6 +47,7 @@ function DailyToolBar({
       ></WeatherIcon>
     ),
     callback: () => {DailyFilter?.setFilter((prev) => {
+      console.log(prev);
       return {
         ...prev,
         weather: n

@@ -7,36 +7,34 @@ import { Outlet } from "react-router";
 
 import { useState, createContext, useMemo, useReducer, type Dispatch, type SetStateAction } from "react";
 
-import DailyBrowser from "@/components/daily/DailyBrowser";
-
 import type { Daily, Actions, WeatherFilter, DailyFilter } from "@/types/daily";
 
 const initDaily = [
   {
     id: crypto.randomUUID(),
     weather: 1,
-    date: Date.now(),
+    date: new Date('2026-11-04').getTime(),
     title: "테스트 일기1",
     content: "테스트 일기입니다1.",
   },
   {
     id: crypto.randomUUID(),
     weather: 2,
-    date: Date.now(),
+    date: new Date('2026-11-04').getTime(),
     title: "테스트 일기2",
     content: "테스트 일기입니다2.",
   },
   {
     id: crypto.randomUUID(),
     weather: 3,
-    date: Date.now(),
+    date: new Date('2026-10-04').getTime(),
     title: "테스트 일기3",
     content: "테스트 일기입니다3.",
   },
   {
     id: crypto.randomUUID(),
     weather: 4,
-    date: Date.now(),
+    date: new Date('2026-09-04').getTime(),
     title: "테스트 일기4",
     content: "테스트 일기입니다4.",
   },
