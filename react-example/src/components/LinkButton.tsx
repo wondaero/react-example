@@ -1,4 +1,4 @@
-import type { ReactNode, CSSProperties } from "react";
+import { type ReactNode, type CSSProperties, memo } from "react";
 import { Link } from "react-router";
 import styles from "./Button.module.css";
 
@@ -26,4 +26,4 @@ function LinkButton({ to, children, className, bg, color, style }: LinkButtonPro
   );
 }
 
-export default LinkButton;
+export default memo(LinkButton);

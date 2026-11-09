@@ -4,38 +4,42 @@ import DailyBrowser from "@/components/daily/DailyBrowser";
 import { DailyFilterContext } from "@/contexts/DailyContext";
 import useContextCheck from "@/hooks/useContextCheck";
 import { getYYYYMM } from "@/utils/date";
+import { type MouseEvent, useCallback } from "react";
 
 const setMonth = (month: number, dir: number) => {
   const d = new Date(month);
   return new Date(d.setMonth(d.getMonth() + dir)).getTime();
 };
 function DailyPage() {
-  const month = useContextCheck(DailyFilterContext);
+  const { filter, setFilter } = useContextCheck(DailyFilterContext);
 
-  const setMonthFilter = (dir: number) => {
-    month.setFilter((prev) => ({
+  const setMonthFilter = useCallback((e: MouseEvent<HTMLButtonElement>) => {
+    const dir = Number(e.currentTarget.dataset.dir);
+    if(!dir) return;
+
+    setFilter((prev) => ({
       ...prev,
-      month: setMonth(month.filter.month, dir),
+      month: setMonth(prev.month, dir),
     }));
-  };
+  }, [setFilter]);
 
-  const setToday = () => {
-    month.setFilter((prev) => ({
+  const setToday = useCallback(() => {
+    setFilter((prev) => ({
       ...prev,
       month: Date.now(),
     }));
-  };
+  }, [setFilter]);
 
   return (
     <>
       <section className="flex items-center justify-center gap-2 p-4">
         <h3 className="text-black text-lg w-20">
-          {getYYYYMM(month.filter.month)}
+          {getYYYYMM(filter.month)}
         </h3>
         <div className="flex gap-2">
-          <Button onClick={() => setMonthFilter(-1)}>이전</Button>
+          <Button data-dir="-1" onClick={setMonthFilter}>이전</Button>
           <Button onClick={setToday}>오늘</Button>
-          <Button onClick={() => setMonthFilter(1)}>다음</Button>
+          <Button data-dir="1" onClick={setMonthFilter}>다음</Button>
         </div>
       </section>
       <DailyBrowser></DailyBrowser>

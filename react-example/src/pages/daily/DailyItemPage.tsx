@@ -4,7 +4,7 @@ import Textarea from "@/components/Textarea";
 import Button from "@/components/Button";
 import LinkButton from "@/components/LinkButton";
 import WeatherIcon from "@/components/WeatherIcon";
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { useNavigate, useParams } from "react-router";
 
 import { DailyContext, DailyActionsContext } from "@/contexts/DailyContext";
@@ -22,8 +22,18 @@ function DailyItemPage({ mode }: Props) {
   const dailyAction = useContextCheck(DailyActionsContext);
   const dailyList = useContext(DailyContext);
 
+
   const navigate = useNavigate();
   const { id } = useParams();
+
+  const found = dailyList.find(d => d.id === id);
+  
+  useEffect(() => {
+    if(mode !== 'new' && !found){
+      alert('존재하지 않는 일기입니다.');
+      navigate('/daily', { replace: true });
+    }
+  }, []);
 
   const emptyItem: Daily = {
     id: "",
@@ -57,7 +67,7 @@ function DailyItemPage({ mode }: Props) {
             onClick={() => {
               const newId = crypto.randomUUID();
               dailyAction.onCreate({ ...dailyItem, id: newId });
-              navigate(`/daily/${id}`);
+              navigate(`/daily/${newId}`, { replace: true });
             }}
           >
             추가

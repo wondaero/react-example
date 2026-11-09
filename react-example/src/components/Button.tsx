@@ -1,4 +1,4 @@
-import type { ReactNode, MouseEventHandler, CSSProperties } from "react";
+import { type ReactNode, type MouseEventHandler, type CSSProperties, memo } from "react";
 import styles from "./Button.module.css";
 
 type ButtonProps = {
@@ -40,4 +40,4 @@ function Button({
   );
 }
 
-export default Button;
+export default memo(Button);
