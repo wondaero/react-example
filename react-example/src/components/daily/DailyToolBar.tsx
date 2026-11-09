@@ -2,57 +2,36 @@ import LinkButton from "@/components/LinkButton";
 import Toggle from "@/components/Toggle";
 import { memo, type CSSProperties } from "react";
 
-import {
-  useState,
-  useContext,
-  type ChangeEventHandler,
-  type ChangeEvent,
-} from "react";
-import { useDebounceCallback } from "@/hooks/useDebounced";
-import { getWeather } from "@/components/Weather";
+import { useContext } from "react";
 import WeatherIcon from "@/components/WeatherIcon";
-import { DailyActionsContext, DailyFilterContext } from "@/pages/daily/DailyPage";
-import type { WeatherFilter } from '@/types/daily'
+import { DailyFilterContext } from "@/contexts/DailyContext";
+import type { WeatherFilter } from "@/types/daily";
 
-function DailyToolBar({
-  onChange,
-}: {
-  // onChange?: ChangeEventHandler<HTMLInputElement>;
-  onChange?: (keyword: string) => void;
-}) {
+function DailyToolBar() {
   console.log("데일리툴바");
   const DailyFilter = useContext(DailyFilterContext);
 
-  const [keyword, setKeyword] = useState<string>("");
-
-  const dailyAction = useContext(DailyActionsContext);
-
-  useDebounceCallback(
-    keyword,
-    () => {
-      onChange?.(keyword);
-    },
-    1000,
-  );
-
   const weathers: WeatherFilter[] = [0, 1, 2, 3, 4];
   const toggleData = weathers.map((n) => ({
-    title: n === 0 ? (
-      <span className="text-xs">날씨 필터</span>
-    ) : (
-      <WeatherIcon
-        type={n}
-        height={20}
-        className="inline-block align-center"
-      ></WeatherIcon>
-    ),
-    callback: () => {DailyFilter?.setFilter((prev) => {
-      console.log(prev);
-      return {
-        ...prev,
-        weather: n
-      }
-    })},
+    title:
+      n === 0 ? (
+        <span className="text-xs">날씨 필터</span>
+      ) : (
+        <WeatherIcon
+          type={n}
+          height={20}
+          className="inline-block align-center"
+        ></WeatherIcon>
+      ),
+    callback: () => {
+      DailyFilter?.setFilter((prev) => {
+        console.log(prev);
+        return {
+          ...prev,
+          weather: n,
+        };
+      });
+    },
   }));
 
   return (

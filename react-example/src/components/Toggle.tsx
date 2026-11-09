@@ -1,4 +1,4 @@
-import { type CSSProperties, type ReactNode, useState, useEffect } from "react";
+import { type CSSProperties, type ReactNode, useState } from "react";
 import styles from "./Button.module.css";
 
 type ToggleItem = { title: ReactNode; active?: boolean; callback?: () => void };
@@ -6,10 +6,13 @@ type ToggleProps = {
   // onClick?: MouseEventHandler<HTMLButtonElement>;
   className?: string;
   style?: CSSProperties;
-  data: [ToggleItem, ...ToggleItem[]];
+  data: ToggleItem[];
 };
 
 function Toggle({ data, className, style }: ToggleProps) {
+  if (data.length < 2) {
+    throw new Error("Toggle의 data는 2개 이상이어야 합니다!");
+  }
   const [idx, setIdx] = useState(() => {
     const active = data.findIndex((d) => d.active);
     return active > 0 ? active : 0;

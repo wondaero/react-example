@@ -4,15 +4,15 @@ import Textarea from "@/components/Textarea";
 import Button from "@/components/Button";
 import LinkButton from "@/components/LinkButton";
 import WeatherIcon from "@/components/WeatherIcon";
-import { useState, useContext, useReducer } from "react";
+import { useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router";
 
 // import DailyBrowser from "@/components/daily/DailyBrowser";
-import { DailyContext, DailyActionsContext } from "@/pages/daily/DailyPage";
+import { DailyContext, DailyActionsContext } from "@/contexts/DailyContext";
 
-import type { Daily, Actions } from "@/types/daily";
+import type { Daily } from "@/types/daily";
 
-import { getYYYYMMDD } from '@/utils/date'; 
+import { getYYYYMMDD } from "@/utils/date";
 
 type Props = { mode: "new" | "view" | "edit" };
 
@@ -21,7 +21,7 @@ function DailyItemPage({ mode }: Props) {
   const dailyList = useContext(DailyContext);
 
   const navigate = useNavigate();
-  const { id } = useParams();   
+  const { id } = useParams();
 
   const emptyItem = {
     id: "",
@@ -32,9 +32,9 @@ function DailyItemPage({ mode }: Props) {
   };
 
   const [dailyItem, setDailyItem] = useState<Daily>(() => {
-    if(mode === 'new') return emptyItem;
+    if (mode === "new") return emptyItem;
 
-    return dailyList.find(d => d.id === id) ?? emptyItem;
+    return dailyList.find((d) => d.id === id) ?? emptyItem;
   });
 
   const setData = <K extends keyof Daily>(key: K, value: Daily[K]) => {
@@ -49,28 +49,49 @@ function DailyItemPage({ mode }: Props) {
   const controlBtn = () => {
     switch (mode) {
       case "new":
-        return <Button className="flex-1" onClick={() => {
-          const newId = crypto.randomUUID();
-          dailyAction.onCreate({...dailyItem, id: newId});
-          navigate(`/daily/${id}`);             
-        }}>추가</Button>;
-        case "edit":
+        return (
+          <Button
+            className="flex-1"
+            onClick={() => {
+              const newId = crypto.randomUUID();
+              dailyAction.onCreate({ ...dailyItem, id: newId });
+              navigate(`/daily/${id}`);
+            }}
+          >
+            추가
+          </Button>
+        );
+      case "edit":
         return (
           <>
-            <Button className="flex-1" onClick={() => {
-              dailyAction.onUpdate({...dailyItem});
-              navigate(`/daily/${id}`);
-            }}>저장</Button>
-            <Button className="flex-1" bg="#f00" color="#fff" onClick={() => {
-              dailyAction.onDelete(dailyItem.id);
-              navigate(`/daily`);
-            }}>
+            <Button
+              className="flex-1"
+              onClick={() => {
+                dailyAction.onUpdate({ ...dailyItem });
+                navigate(`/daily/${id}`);
+              }}
+            >
+              저장
+            </Button>
+            <Button
+              className="flex-1"
+              bg="#f00"
+              color="#fff"
+              onClick={() => {
+                dailyAction.onDelete(dailyItem.id);
+                navigate(`/daily`);
+              }}
+            >
               삭제
             </Button>
           </>
         );
       case "view":
-        return <LinkButton to={`/daily/${id}/edit`} className="flex-1">수정</LinkButton>;
+        return (
+          <LinkButton to={`/daily/${id}/edit`} className="flex-1">
+            수정
+          </LinkButton>
+        );
     }
   };
 
@@ -84,7 +105,7 @@ function DailyItemPage({ mode }: Props) {
               className="w-12"
               bg={dailyItem.weather === idx ? "var(--color1)" : "#eee"}
               onClick={() => {
-                if(mode === 'view') return;
+                if (mode === "view") return;
                 setData("weather", idx);
               }}
             >
@@ -101,7 +122,7 @@ function DailyItemPage({ mode }: Props) {
             if (!e.target.value) return;
             setData("date", new Date(e.target.value + "T00:00").getTime());
           }}
-          readonly={mode === 'view'}
+          readonly={mode === "view"}
         />
         <Input
           placeholder="오늘을 한줄로 표현해볼까요?"
@@ -110,7 +131,7 @@ function DailyItemPage({ mode }: Props) {
           onChange={(e) => {
             setData("title", e.target.value);
           }}
-          readonly={mode === 'view'}
+          readonly={mode === "view"}
           value={dailyItem.title}
         />
         <Textarea
@@ -120,12 +141,18 @@ function DailyItemPage({ mode }: Props) {
           onChange={(e) => {
             setData("content", e.target.value);
           }}
-          readonly={mode === 'view'}
+          readonly={mode === "view"}
           value={dailyItem.content}
         ></Textarea>
       </section>
       <section className="flex items-center gap-2 pt-4 border-t-1 border-[var(--border-color1)]">
-        <LinkButton bg="#ddd" className="flex-1" to={`/daily${mode === 'edit' ? '/' + id : ''}`}>{mode === 'edit' ? '뒤로' : '목록으로'}</LinkButton>
+        <LinkButton
+          bg="#ddd"
+          className="flex-1"
+          to={`/daily${mode === "edit" ? "/" + id : ""}`}
+        >
+          {mode === "edit" ? "뒤로" : "목록으로"}
+        </LinkButton>
         {controlBtn()}
       </section>
     </div>

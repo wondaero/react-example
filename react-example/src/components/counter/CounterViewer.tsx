@@ -31,11 +31,7 @@ function CounterViewer({ num, last }: CounterViewerProps) {
     >
       <strong>
         {num}
-        <span
-          key={num}
-          // className={last?.startsWith("-") ? styles.minus : styles.plus}
-          className={effectClass(last)}
-        >
+        <span key={num} className={effectClass(last)}>
           {last}
         </span>
       </strong>

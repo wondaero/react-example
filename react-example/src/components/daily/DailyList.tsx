@@ -1,14 +1,13 @@
-
-import { useContext, useRef, memo, type CSSProperties } from "react";
+import { useContext, memo } from "react";
 import { Link } from "react-router";
 
 import type { Daily } from "@/types/daily";
-import useDailyfilter  from "@/hooks/useDailyFilter";
+import useDailyfilter from "@/hooks/useDailyFilter";
 
 import WeatherIcon from "@/components/WeatherIcon";
-import { DailyContext } from "@/pages/daily/DailyPage";
+import { DailyContext } from "@/contexts/DailyContext";
 
-import { getYYYYMMDD, getYYYYMM } from '@/utils/date';
+import { getYYYYMMDD, getYYYYMM } from "@/utils/date";
 
 const DailyItem = memo(function ({ data }: { data: Daily }) {
   return (
@@ -24,14 +23,15 @@ const DailyItem = memo(function ({ data }: { data: Daily }) {
   );
 });
 
-
-function DailyList({ keyword = "" }: { keyword?: string }) {
+function DailyList() {
   const DailyList = useContext(DailyContext);
-  // const DailyFilter = useContext(DailyFilterContext);
   const { filter } = useDailyfilter();
 
-  const filteredData = DailyList.filter(d => {
-    return (getYYYYMM(filter.month) === getYYYYMM(d.date)) && filter.weather === 0 || d.weather === filter.weather
+  const filteredData = DailyList.filter((d) => {
+    return (
+      getYYYYMM(filter.month) === getYYYYMM(d.date) &&
+      (filter.weather === 0 || d.weather === filter.weather)
+    );
   });
 
   return filteredData && filteredData.length ? (
