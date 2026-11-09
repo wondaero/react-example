@@ -4,6 +4,7 @@ import Checkbox from "@/components/Checkbox";
 import { useContext, useRef, memo } from "react";
 import type { Todo } from "@/types/todo";
 import { TodoContext, TodoActionsContext } from "@/pages/todolist/TodoListPage";
+import useContextCheck from "@/hooks/useContextCheck";
 
 import styles from "./TodoList.module.css";
 
@@ -16,7 +17,7 @@ const dateParse = (d: string | number) => {
 };
 
 const TodoItem = memo(function ({ data }: { data: Todo }) {
-  const TodoActions = useContext(TodoActionsContext);
+  const TodoActions = useContextCheck(TodoActionsContext);
   const todoItem = useRef<HTMLLIElement>(null);
 
   const delEffect = (id: string) => {

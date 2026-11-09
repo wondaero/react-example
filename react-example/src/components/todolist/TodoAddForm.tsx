@@ -1,10 +1,11 @@
 import Button from "@/components/Button";
 import Input from "@/components/Input";
-import { useState, useContext, useRef } from "react";
+import { useState, useRef } from "react";
+import useContextCheck from "@/hooks/useContextCheck";
 import { TodoActionsContext } from "@/pages/todolist/TodoListPage";
 
 function TodoAddForm() {
-  const TodoActions = useContext(TodoActionsContext);
+  const TodoActions = useContextCheck(TodoActionsContext);
   const [todoTitle, setTodoTitle] = useState<string>("");
   const addInput = useRef<HTMLInputElement>(null);
 

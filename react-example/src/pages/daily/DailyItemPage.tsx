@@ -7,8 +7,8 @@ import WeatherIcon from "@/components/WeatherIcon";
 import { useState, useContext } from "react";
 import { useNavigate, useParams } from "react-router";
 
-// import DailyBrowser from "@/components/daily/DailyBrowser";
 import { DailyContext, DailyActionsContext } from "@/contexts/DailyContext";
+import useContextCheck from "@/hooks/useContextCheck";
 
 import type { Daily } from "@/types/daily";
 
@@ -17,7 +17,7 @@ import { getYYYYMMDD } from "@/utils/date";
 type Props = { mode: "new" | "view" | "edit" };
 
 function DailyItemPage({ mode }: Props) {
-  const dailyAction = useContext(DailyActionsContext);
+  const dailyAction = useContextCheck(DailyActionsContext);
   const dailyList = useContext(DailyContext);
 
   const navigate = useNavigate();

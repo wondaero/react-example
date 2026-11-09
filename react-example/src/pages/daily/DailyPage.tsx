@@ -1,56 +1,52 @@
 import "@/App.css";
 import Header from "@/components/Header";
-import Button from "@/components/Button";
 import LinkButton from "@/components/LinkButton";
-
 import { Outlet } from "react-router";
-
 import {
   useState,
-  createContext,
   useMemo,
   useReducer,
-  type Dispatch,
-  type SetStateAction,
+  useEffect
 } from "react";
-
-import type { Daily, Actions, WeatherFilter, DailyFilter } from "@/types/daily";
+import type { Daily, DailyFilter } from "@/types/daily";
 import {
   DailyContext,
   DailyActionsContext,
   DailyFilterContext,
 } from "@/contexts/DailyContext";
 
-const initDaily = [
-  {
-    id: crypto.randomUUID(),
-    weather: 1,
-    date: new Date("2026-11-04").getTime(),
-    title: "테스트 일기1",
-    content: "테스트 일기입니다1.",
-  },
-  {
-    id: crypto.randomUUID(),
-    weather: 2,
-    date: new Date("2026-11-04").getTime(),
-    title: "테스트 일기2",
-    content: "테스트 일기입니다2.",
-  },
-  {
-    id: crypto.randomUUID(),
-    weather: 3,
-    date: new Date("2026-10-04").getTime(),
-    title: "테스트 일기3",
-    content: "테스트 일기입니다3.",
-  },
-  {
-    id: crypto.randomUUID(),
-    weather: 4,
-    date: new Date("2026-09-04").getTime(),
-    title: "테스트 일기4",
-    content: "테스트 일기입니다4.",
-  },
-];
+// const initDaily = [
+//   {
+//     id: crypto.randomUUID(),
+//     weather: 1,
+//     date: new Date("2026-11-04").getTime(),
+//     title: "테스트 일기1",
+//     content: "테스트 일기입니다1.",
+//   },
+//   {
+//     id: crypto.randomUUID(),
+//     weather: 2,
+//     date: new Date("2026-11-04").getTime(),
+//     title: "테스트 일기2",
+//     content: "테스트 일기입니다2.",
+//   },
+//   {
+//     id: crypto.randomUUID(),
+//     weather: 3,
+//     date: new Date("2026-10-04").getTime(),
+//     title: "테스트 일기3",
+//     content: "테스트 일기입니다3.",
+//   },
+//   {
+//     id: crypto.randomUUID(),
+//     weather: 4,
+//     date: new Date("2026-09-04").getTime(),
+//     title: "테스트 일기4",
+//     content: "테스트 일기입니다4.",
+//   },
+// ];
+
+// window.localStorage.setItem('daily', JSON.stringify(initDaily));
 
 const homeLink = <LinkButton to="/">홈</LinkButton>;
 
@@ -72,8 +68,18 @@ function reducer(state: Daily[], action: DailyAction): Daily[] {
   }
 }
 
+const loadData = (): Daily[] => {
+  try{
+    const saved = window.localStorage.getItem('daily');
+    return saved ? JSON.parse(saved) : [];
+  } catch {
+    return [];
+  }
+}
+
 function DailyPage() {
-  const [daily, dispatch] = useReducer(reducer, initDaily);
+  
+  const [daily, dispatch] = useReducer(reducer, null, loadData);
 
   const actions = {
     onCreate: (data: Daily) => {
@@ -95,6 +101,11 @@ function DailyPage() {
       });
     },
   };
+
+  useEffect(() => {
+    console.log('데이터 변동 발생!!!')
+    window.localStorage.setItem('daily', JSON.stringify(daily));
+  }, [daily])
 
   const [filter, setFilter] = useState<DailyFilter>({
     weather: 0,

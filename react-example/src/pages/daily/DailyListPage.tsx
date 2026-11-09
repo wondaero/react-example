@@ -1,19 +1,18 @@
 import "@/App.css";
-import { useContext } from "react";
-
 import Button from "@/components/Button";
 import DailyBrowser from "@/components/daily/DailyBrowser";
 import { DailyFilterContext } from "@/contexts/DailyContext";
+import useContextCheck from "@/hooks/useContextCheck";
 import { getYYYYMM } from "@/utils/date";
 
-const setMonth = (month, dir) => {
+const setMonth = (month: number, dir: number) => {
   const d = new Date(month);
   return new Date(d.setMonth(d.getMonth() + dir)).getTime();
 };
 function DailyPage() {
-  const month = useContext(DailyFilterContext);
+  const month = useContextCheck(DailyFilterContext);
 
-  const setMonthFilter = (dir) => {
+  const setMonthFilter = (dir: number) => {
     month.setFilter((prev) => ({
       ...prev,
       month: setMonth(month.filter.month, dir),

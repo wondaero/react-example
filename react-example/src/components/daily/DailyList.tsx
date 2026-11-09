@@ -2,7 +2,8 @@ import { useContext, memo } from "react";
 import { Link } from "react-router";
 
 import type { Daily } from "@/types/daily";
-import useDailyfilter from "@/hooks/useDailyFilter";
+import useContextCheck from "@/hooks/useContextCheck";
+import { DailyFilterContext } from "@/contexts/DailyContext";
 
 import WeatherIcon from "@/components/WeatherIcon";
 import { DailyContext } from "@/contexts/DailyContext";
@@ -25,7 +26,7 @@ const DailyItem = memo(function ({ data }: { data: Daily }) {
 
 function DailyList() {
   const DailyList = useContext(DailyContext);
-  const { filter } = useDailyfilter();
+  const { filter } = useContextCheck(DailyFilterContext);
 
   const filteredData = DailyList.filter((d) => {
     return (
