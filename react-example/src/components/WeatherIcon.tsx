@@ -1,9 +1,10 @@
 import type { CSSProperties } from "react";
-import { getWeather } from '@/components/Weather'
+import { WEATHER } from '@/components/Weather'
+import type { Weather } from "@/types/daily";
 
 
 type IconProps = {
-  type: number;
+  type: Weather;
   className?: string;
   style?: CSSProperties;
   size?: number;
@@ -19,7 +20,7 @@ function WeatherIcon({ type, className, style, size, width, height }: IconProps)
     <img
       className={className}
       style={{width: w, height: h, ...style}}
-      src={getWeather(type).icon}
+      src={WEATHER[type].icon}
       width={size ?? width}
       height={size ?? height}
     >

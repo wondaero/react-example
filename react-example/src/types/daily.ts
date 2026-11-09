@@ -1,10 +1,12 @@
-export type WeatherFilter = 0 | 1 | 2 | 3 | 4;
+export type Weather = 1 | 2 | 3 | 4;
+export type WeatherFilter = 0 | Weather;
+
 export type Daily = {
     id: string,
     title: string,
     content: string,
     date: number | ''
-    weather: number,
+    weather: Weather,
 }
 
 export type Actions = {

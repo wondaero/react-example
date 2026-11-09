@@ -2,13 +2,12 @@ import Input from "@/components/Input";
 import styles from "./TodoSearch.module.css";
 import { memo } from 'react';
 
-import { useState, type ChangeEventHandler, type ChangeEvent } from "react";
+import { useState, type ChangeEvent } from "react";
 import { useDebounceCallback } from "@/hooks/useDebounced";
 
 function TodoSearch({
   onChange,
 }: {
-  // onChange?: ChangeEventHandler<HTMLInputElement>;
   onChange?: (keyword: string) => void;
 }) {
   console.log("투두서치");

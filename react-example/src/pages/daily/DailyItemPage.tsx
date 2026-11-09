@@ -10,11 +10,13 @@ import { useNavigate, useParams } from "react-router";
 import { DailyContext, DailyActionsContext } from "@/contexts/DailyContext";
 import useContextCheck from "@/hooks/useContextCheck";
 
-import type { Daily } from "@/types/daily";
+import type { Daily, Weather } from "@/types/daily";
 
 import { getYYYYMMDD } from "@/utils/date";
 
 type Props = { mode: "new" | "view" | "edit" };
+
+const weathers: Weather[] = [1, 2, 3, 4];
 
 function DailyItemPage({ mode }: Props) {
   const dailyAction = useContextCheck(DailyActionsContext);
@@ -23,7 +25,7 @@ function DailyItemPage({ mode }: Props) {
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const emptyItem = {
+  const emptyItem: Daily = {
     id: "",
     title: "",
     content: "",
@@ -95,11 +97,13 @@ function DailyItemPage({ mode }: Props) {
     }
   };
 
+  
+
   return (
     <div className="px-5 max-w-100 my-0 mx-auto w-full">
       <section className="mb-4">
         <div className="flex gap-2 justify-center mb-4">
-          {[1, 2, 3, 4].map((idx) => (
+          {weathers.map((idx) => (
             <Button
               key={idx}
               className="w-12"
@@ -125,7 +129,7 @@ function DailyItemPage({ mode }: Props) {
           readonly={mode === "view"}
         />
         <Input
-          placeholder="오늘을 한줄로 표현해볼까요?"
+          placeholder="오늘의 날씨(기분)는 어땠나요?"
           wrapperClass="flex justify-center mb-4"
           className="w-full"
           onChange={(e) => {
@@ -135,7 +139,7 @@ function DailyItemPage({ mode }: Props) {
           value={dailyItem.title}
         />
         <Textarea
-          placeholder="좀더 자세히..."
+          placeholder="좀더 구체적으로..."
           wrapperClass="flex justify-center"
           className="h-50 w-full"
           onChange={(e) => {
