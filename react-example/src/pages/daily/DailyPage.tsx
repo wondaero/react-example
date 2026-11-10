@@ -81,7 +81,7 @@ function DailyPage() {
   
   const [daily, dispatch] = useReducer(reducer, null, loadData);
 
-  const actions = {
+  const actions = useMemo(() => ({
     onCreate: (data: Daily) => {
       dispatch({
         type: "create",
@@ -100,7 +100,7 @@ function DailyPage() {
         data: delId,
       });
     },
-  };
+  }), []);
 
   useEffect(() => {
     console.log('데이터 변동 발생!!!')
