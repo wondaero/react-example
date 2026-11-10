@@ -4,7 +4,7 @@ import Textarea from "@/components/Textarea";
 import Button from "@/components/Button";
 import LinkButton from "@/components/LinkButton";
 import WeatherIcon from "@/components/WeatherIcon";
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext, memo, useCallback } from "react";
 import { useNavigate, useParams } from "react-router";
 
 import { DailyContext, DailyActionsContext } from "@/contexts/DailyContext";
@@ -18,20 +18,41 @@ type Props = { mode: "new" | "view" | "edit" };
 
 const weathers: Weather[] = [1, 2, 3, 4];
 
+const WeatherButton = memo(function WeatherButton({
+  type,
+  selected,
+  onSelect,
+}: {
+  type: Weather;
+  selected: boolean;
+  onSelect: (type: Weather) => void;
+}) {
+  return (
+    <Button
+      className="w-12"
+      bg={selected ? "var(--color1)" : "#eee"}
+      onClick={() => {
+        onSelect(type);
+      }}
+    >
+      <WeatherIcon type={type} height={30}></WeatherIcon>
+    </Button>
+  );
+});
+
 function DailyItemPage({ mode }: Props) {
   const dailyAction = useContextCheck(DailyActionsContext);
   const dailyList = useContext(DailyContext);
 
-
   const navigate = useNavigate();
   const { id } = useParams();
 
-  const found = dailyList.find(d => d.id === id);
-  
+  const found = dailyList.find((d) => d.id === id);
+
   useEffect(() => {
-    if(mode !== 'new' && !found){
-      alert('존재하지 않는 일기입니다.');
-      navigate('/daily', { replace: true });
+    if (mode !== "new" && !found) {
+      alert("존재하지 않는 일기입니다.");
+      navigate("/daily", { replace: true });
     }
   }, []);
 
@@ -49,14 +70,17 @@ function DailyItemPage({ mode }: Props) {
     return dailyList.find((d) => d.id === id) ?? emptyItem;
   });
 
-  const setData = <K extends keyof Daily>(key: K, value: Daily[K]) => {
-    setDailyItem((prev) => {
-      return {
-        ...prev,
-        [key]: value,
-      };
-    });
-  };
+  const setData = useCallback(
+    <K extends keyof Daily>(key: K, value: Daily[K]) => {
+      setDailyItem((prev) => {
+        return {
+          ...prev,
+          [key]: value,
+        };
+      });
+    },
+    [],
+  );
 
   const controlBtn = () => {
     switch (mode) {
@@ -90,6 +114,7 @@ function DailyItemPage({ mode }: Props) {
               bg="#f00"
               color="#fff"
               onClick={() => {
+                if (!window.confirm("삭제할까요?")) return;
                 dailyAction.onDelete(dailyItem.id);
                 navigate(`/daily`);
               }}
@@ -107,24 +132,25 @@ function DailyItemPage({ mode }: Props) {
     }
   };
 
-  
+  const handleWeather = useCallback(
+    (type: Weather) => {
+      if (mode === "view") return;
+      setData("weather", type);
+    },
+    [mode, setData],
+  );
 
   return (
     <div className="px-5 max-w-100 my-0 mx-auto w-full">
       <section className="mb-4">
         <div className="flex gap-2 justify-center mb-4">
           {weathers.map((idx) => (
-            <Button
+            <WeatherButton
               key={idx}
-              className="w-12"
-              bg={dailyItem.weather === idx ? "var(--color1)" : "#eee"}
-              onClick={() => {
-                if (mode === "view") return;
-                setData("weather", idx);
-              }}
-            >
-              <WeatherIcon type={idx} height={30}></WeatherIcon>
-            </Button>
+              type={idx}
+              selected={dailyItem.weather === idx}
+              onSelect={handleWeather}
+            ></WeatherButton>
           ))}
         </div>
         <Input
