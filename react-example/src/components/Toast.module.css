@@ -1,0 +1,24 @@
+@layer components {
+  .toast {
+    --toast-bg: var(--color1);
+    --toast-color: #000;
+
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(50%);
+
+    background: var(--toast-bg);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: var(--toast-color);
+
+    .active {
+    }
+
+    /* &:active {
+      box-shadow: none;
+      transform: translateY(0);
+    } */
+  }
+}

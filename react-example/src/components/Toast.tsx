@@ -1,4 +1,5 @@
 import { memo, type ReactNode, useRef, type CSSProperties } from "react";
+import styles from "./Toast.module.css";
 
 type ToastProps = {
   message: ReactNode;
@@ -22,15 +23,19 @@ function Toast({
   const toast = useRef(null);
 
   const toastCombiStyle = {
-    ...(bg && { "--btn-bg": bg }),
+    ...(bg && { "--toast-bg": bg }),
     ...toastStyle,
   };
   const textCombiStyle = {
-    ...(color && { "--btn-color": color }),
+    ...(color && { "--toast-color": color }),
     ...textStyle,
   };
   return (
-    <aside ref={toast} style={toastCombiStyle} className={toastClass ?? ""}>
+    <aside
+      ref={toast}
+      style={toastCombiStyle}
+      className={`${styles.toast} ${toastClass ?? ""}`}
+    >
       <h2 style={textCombiStyle} className={textClass ?? ""}>
         {message}
       </h2>
