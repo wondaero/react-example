@@ -1,9 +1,8 @@
-import { type CSSProperties, type ReactNode, useState } from "react";
+import { type CSSProperties, type ReactNode } from "react";
 import styles from "./Button.module.css";
 
 type ToggleItem = { title: ReactNode; active?: boolean; callback?: () => void };
 type ToggleProps = {
-  // onClick?: MouseEventHandler<HTMLButtonElement>;
   className?: string;
   style?: CSSProperties;
   data: ToggleItem[];
@@ -13,10 +12,9 @@ function Toggle({ data, className, style }: ToggleProps) {
   if (data.length < 2) {
     throw new Error("Toggle의 data는 2개 이상이어야 합니다!");
   }
-  const [idx, setIdx] = useState(() => {
-    const active = data.findIndex((d) => d.active);
-    return active > 0 ? active : 0;
-  });
+
+  const found = data.findIndex((d) => d.active);
+  const activeIdx = found > 0 ? found : 0;
 
   console.log("토글");
 
@@ -24,13 +22,12 @@ function Toggle({ data, className, style }: ToggleProps) {
     <button
       className={`${styles.btn} ${className ?? ""}`}
       onClick={() => {
-        const next = (idx + 1) % data.length;
-        setIdx(next);
+        const next = (activeIdx + 1) % data.length;
         data[next].callback?.();
       }}
       style={style}
     >
-      {data[idx].title}
+      {data[activeIdx].title}
     </button>
   );
 }

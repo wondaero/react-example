@@ -1,17 +1,16 @@
 import LinkButton from "@/components/LinkButton";
 import Toggle from "@/components/Toggle";
-import { memo, type CSSProperties } from "react";
-
-import { useContext } from "react";
+import { useContext, memo, type CSSProperties } from "react";
 import WeatherIcon from "@/components/WeatherIcon";
 import { DailyFilterContext } from "@/contexts/DailyContext";
 import type { WeatherFilter } from "@/types/daily";
+
+const weathers: WeatherFilter[] = [0, 1, 2, 3, 4];
 
 function DailyToolBar() {
   console.log("데일리툴바");
   const DailyFilter = useContext(DailyFilterContext);
 
-  const weathers: WeatherFilter[] = [0, 1, 2, 3, 4];
   const toggleData = weathers.map((n) => ({
     title:
       n === 0 ? (
@@ -25,13 +24,13 @@ function DailyToolBar() {
       ),
     callback: () => {
       DailyFilter?.setFilter((prev) => {
-        console.log(prev);
         return {
           ...prev,
           weather: n,
         };
       });
     },
+    active: n === DailyFilter?.filter.weather,
   }));
 
   return (

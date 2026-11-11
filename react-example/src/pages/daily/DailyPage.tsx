@@ -2,12 +2,7 @@ import "@/App.css";
 import Header from "@/components/Header";
 import LinkButton from "@/components/LinkButton";
 import { Outlet } from "react-router";
-import {
-  useState,
-  useMemo,
-  useReducer,
-  useEffect
-} from "react";
+import { useState, useMemo, useReducer, useEffect } from "react";
 import type { Daily, DailyFilter } from "@/types/daily";
 import {
   DailyContext,
@@ -69,48 +64,50 @@ function reducer(state: Daily[], action: DailyAction): Daily[] {
 }
 
 const loadData = (): Daily[] => {
-  try{
-    const saved = window.localStorage.getItem('daily');
+  try {
+    const saved = window.localStorage.getItem("daily");
     return saved ? JSON.parse(saved) : [];
   } catch {
     return [];
   }
-}
+};
 
 function DailyPage() {
-  
   const [daily, dispatch] = useReducer(reducer, null, loadData);
 
-  const actions = useMemo(() => ({
-    onCreate: (data: Daily) => {
-      dispatch({
-        type: "create",
-        data: data,
-      });
-    },
-    onUpdate: (data: Daily) => {
-      dispatch({
-        type: "update",
-        data: data,
-      });
-    },
-    onDelete: (delId: string) => {
-      dispatch({
-        type: "delete",
-        data: delId,
-      });
-    },
-  }), []);
+  const actions = useMemo(
+    () => ({
+      onCreate: (data: Daily) => {
+        dispatch({
+          type: "create",
+          data: data,
+        });
+      },
+      onUpdate: (data: Daily) => {
+        dispatch({
+          type: "update",
+          data: data,
+        });
+      },
+      onDelete: (delId: string) => {
+        dispatch({
+          type: "delete",
+          data: delId,
+        });
+      },
+    }),
+    [],
+  );
 
   useEffect(() => {
-    console.log('데이터 변동 발생!!!')
-    window.localStorage.setItem('daily', JSON.stringify(daily));
-  }, [daily])
+    console.log("데이터 변동 발생!!!");
+    window.localStorage.setItem("daily", JSON.stringify(daily));
+  }, [daily]);
 
-  const [filter, setFilter] = useState<DailyFilter>({
+  const [filter, setFilter] = useState<DailyFilter>(() => ({
     weather: 0,
     month: Date.now(),
-  });
+  }));
   const filterValue = useMemo(() => ({ filter, setFilter }), [filter]);
 
   return (
