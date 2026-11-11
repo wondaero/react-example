@@ -5,7 +5,7 @@ import TodoListPage from "./pages/todolist/TodoListPage";
 
 import DailyPage from "./pages/daily/DailyPage";
 import DailyListPage from "./pages/daily/DailyListPage";
-import DailyItemPage from "./pages/daily//DailyItemPage";
+import DailyItemPage from "./pages/daily/DailyItemPage";
 import { BrowserRouter, Routes, Route } from "react-router";
 
 function App() {

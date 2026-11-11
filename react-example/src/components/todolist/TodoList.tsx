@@ -3,7 +3,7 @@ import Checkbox from "@/components/Checkbox";
 
 import { useContext, useRef, memo } from "react";
 import type { Todo } from "@/types/todo";
-import { TodoContext, TodoActionsContext } from "@/pages/todolist/TodoListPage";
+import { TodoContext, TodoActionsContext } from "@/contexts/TodoContext";
 import useContextCheck from "@/hooks/useContextCheck";
 
 import styles from "./TodoList.module.css";
@@ -65,7 +65,6 @@ const TodoItem = memo(function ({ data }: { data: Todo }) {
 const normalize = (s: string) => s.replace(/\s/g, "").toLowerCase();
 
 function TodoList({ keyword = "" }: { keyword?: string }) {
-  console.log("투두리스트");
   const TodoList = useContext(TodoContext);
   const filteredData = TodoList.filter((t) =>
     normalize(t.title).includes(normalize(keyword)),

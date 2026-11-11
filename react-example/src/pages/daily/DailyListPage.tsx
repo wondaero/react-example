@@ -12,7 +12,7 @@ const setMonth = (month: number, dir: number) => {
   d.setMonth(d.getMonth() + dir);
   return d.getTime();
 };
-function DailyPage() {
+function DailyListPage() {
   const { filter, setFilter } = useContextCheck(DailyFilterContext);
 
   const setMonthFilter = useCallback(
@@ -54,4 +54,4 @@ function DailyPage() {
   );
 }
 
-export default DailyPage;
+export default DailyListPage;

@@ -29,7 +29,7 @@ function Textarea({
 }: TextareaProps) {
   return (
     <label
-      className={`${styles.textareaWrapper} ${labelPosition === "top" && styles.withTopLabel} ${wrapperClass}`}
+      className={`${styles.textareaWrapper} ${labelPosition === "top" ? styles.withTopLabel : ""} ${wrapperClass ?? ""}`}
     >
       {label && <strong>{label}</strong>}
       <textarea

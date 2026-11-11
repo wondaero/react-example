@@ -16,8 +16,6 @@ function Toggle({ data, className, style }: ToggleProps) {
   const found = data.findIndex((d) => d.active);
   const activeIdx = found > 0 ? found : 0;
 
-  console.log("토글");
-
   return (
     <button
       className={`${styles.btn} ${className ?? ""}`}

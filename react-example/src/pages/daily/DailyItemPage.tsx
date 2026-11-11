@@ -40,6 +40,14 @@ const WeatherButton = memo(function WeatherButton({
   );
 });
 
+const createEmptyItem = (): Daily => ({
+  id: "",
+  title: "",
+  content: "",
+  date: Date.now(),
+  weather: 1,
+});
+
 function DailyItemPage({ mode }: Props) {
   const dailyAction = useContextCheck(DailyActionsContext);
   const dailyList = useContext(DailyContext);
@@ -54,20 +62,12 @@ function DailyItemPage({ mode }: Props) {
       alert("존재하지 않는 일기입니다.");
       navigate("/daily", { replace: true });
     }
-  }, []);
-
-  const emptyItem: Daily = {
-    id: "",
-    title: "",
-    content: "",
-    date: Date.now(),
-    weather: 1,
-  };
+  }, [mode, found, navigate]);
 
   const [dailyItem, setDailyItem] = useState<Daily>(() => {
-    if (mode === "new") return emptyItem;
+    if (mode === "new") return createEmptyItem();
 
-    return dailyList.find((d) => d.id === id) ?? emptyItem;
+    return found ?? createEmptyItem();
   });
 
   const setData = useCallback(
@@ -103,7 +103,8 @@ function DailyItemPage({ mode }: Props) {
             <Button
               className="flex-1"
               onClick={() => {
-                dailyAction.onUpdate({ ...dailyItem });
+                if (!id) return;
+                dailyAction.onUpdate({ ...dailyItem, id: id });
                 navigate(`/daily/${id}`);
               }}
             >
@@ -114,8 +115,9 @@ function DailyItemPage({ mode }: Props) {
               bg="#f00"
               color="#fff"
               onClick={() => {
+                if (!id) return;
                 if (!window.confirm("삭제할까요?")) return;
-                dailyAction.onDelete(dailyItem.id);
+                dailyAction.onDelete(id);
                 navigate(`/daily`);
               }}
             >

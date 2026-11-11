@@ -8,7 +8,6 @@ import type { WeatherFilter } from "@/types/daily";
 const weathers: WeatherFilter[] = [0, 1, 2, 3, 4];
 
 function DailyToolBar() {
-  console.log("데일리툴바");
   const DailyFilter = useContext(DailyFilterContext);
 
   const toggleData = weathers.map((n) => ({

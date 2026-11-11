@@ -30,7 +30,7 @@ function Input({
 }: InputProps) {
   return (
     <label
-      className={`${styles.inputWrapper} ${labelPosition === "top" && styles.withTopLabel} ${wrapperClass}`}
+      className={`${styles.inputWrapper} ${labelPosition === "top" ? styles.withTopLabel : ""} ${wrapperClass ?? ""}`}
     >
       {label && <strong>{label}</strong>}
       <input

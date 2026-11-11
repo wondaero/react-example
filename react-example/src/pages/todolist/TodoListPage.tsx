@@ -1,11 +1,12 @@
 import "@/App.css";
-import { useState, createContext, useMemo } from "react";
+import { useState, useMemo } from "react";
 import Header from "@/components/Header";
 import LinkButton from "@/components/LinkButton";
 import TodoAddForm from "@/components/todolist/TodoAddForm";
 import TodoBrowser from "@/components/todolist/TodoBrowser";
 
 import type { Todo, Actions } from "@/types/todo";
+import { TodoContext, TodoActionsContext } from "@/contexts/TodoContext";
 
 const initTodo = [
   {
@@ -27,9 +28,6 @@ const initTodo = [
     date: Date.now(),
   },
 ];
-
-export const TodoContext = createContext<Todo[]>([]);
-export const TodoActionsContext = createContext<Actions | null>(null);
 
 const homeLink = <LinkButton to="/">홈</LinkButton>;
 

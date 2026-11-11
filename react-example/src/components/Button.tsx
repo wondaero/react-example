@@ -1,12 +1,7 @@
-import { type ReactNode, type MouseEventHandler, type CSSProperties, memo } from "react";
+import { memo, type ComponentProps } from "react";
 import styles from "./Button.module.css";
 
-type ButtonProps = {
-  children?: ReactNode;
-  onClick?: MouseEventHandler<HTMLButtonElement>;
-  className?: string;
-  type?: "submit" | "button" | "reset";
-  style?: CSSProperties;
+type ButtonProps = ComponentProps<"button"> & {
   bg?: string;
   color?: string;
 };
@@ -19,9 +14,8 @@ function Button({
   bg,
   color,
   style,
+  ...rest
 }: ButtonProps) {
-  console.log("버튼", children);
-
   const combiStyle = {
     ...(bg && { "--btn-bg": bg }),
     ...(color && { "--btn-color": color }),
@@ -34,6 +28,7 @@ function Button({
       className={`${styles.btn} ${className ?? ""}`}
       onClick={onClick}
       style={combiStyle}
+      {...rest}
     >
       {children}
     </button>
