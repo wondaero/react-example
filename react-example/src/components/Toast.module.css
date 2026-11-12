@@ -1,24 +1,41 @@
 @layer components {
+  .toastWrapper {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    pointer-events: none;
+    padding-bottom: 20px;
+  }
   .toast {
     --toast-bg: var(--color1);
     --toast-color: #000;
-
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(50%);
 
     background: var(--toast-bg);
     border-radius: 8px;
     padding: 8px 12px;
     color: var(--toast-color);
-
-    .active {
-    }
-
-    /* &:active {
-      box-shadow: none;
-      transform: translateY(0);
-    } */
+    animation: toast-up 2.5s ease forwards;
   }
+}
+
+@keyframes toast-up {
+  0% {
+    opacity: 0;
+    transform: translateY(100%);
+  } /* 아래에 숨어 있다가 */
+  12% {
+    opacity: 1;
+    transform: translateY(0);
+  } /* 올라옴 */
+  85% {
+    opacity: 1;
+    transform: translateY(0);
+  } /* 머묾 */
+  100% {
+    opacity: 0;
+    transform: translateY(100%);
+  } /* 다시 내려가며 사라짐 */
 }

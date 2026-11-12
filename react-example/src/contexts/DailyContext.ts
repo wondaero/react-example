@@ -7,3 +7,7 @@ export const DailyFilterContext = createContext<{
   filter: DailyFilter;
   setFilter: Dispatch<SetStateAction<DailyFilter>>;
 } | null>(null);
+
+export const DailyToastContext = createContext<{
+  showToast: (message: string) => void;
+} | null>(null);

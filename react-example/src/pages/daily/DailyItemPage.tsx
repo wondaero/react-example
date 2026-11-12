@@ -7,7 +7,11 @@ import WeatherIcon from "@/components/WeatherIcon";
 import { useState, useEffect, useContext, memo, useCallback } from "react";
 import { useNavigate, useParams } from "react-router";
 
-import { DailyContext, DailyActionsContext } from "@/contexts/DailyContext";
+import {
+  DailyContext,
+  DailyActionsContext,
+  DailyToastContext,
+} from "@/contexts/DailyContext";
 import useContextCheck from "@/hooks/useContextCheck";
 
 import type { Daily, Weather } from "@/types/daily";
@@ -49,6 +53,7 @@ const createEmptyItem = (): Daily => ({
 });
 
 function DailyItemPage({ mode }: Props) {
+  const { showToast } = useContextCheck(DailyToastContext);
   const dailyAction = useContextCheck(DailyActionsContext);
   const dailyList = useContext(DailyContext);
 
@@ -92,6 +97,7 @@ function DailyItemPage({ mode }: Props) {
               const newId = crypto.randomUUID();
               dailyAction.onCreate({ ...dailyItem, id: newId });
               navigate(`/daily/${newId}`, { replace: true });
+              showToast("추가되었습니다.");
             }}
           >
             추가
@@ -106,6 +112,7 @@ function DailyItemPage({ mode }: Props) {
                 if (!id) return;
                 dailyAction.onUpdate({ ...dailyItem, id: id });
                 navigate(`/daily/${id}`);
+                showToast("수정되었습니다.");
               }}
             >
               저장
@@ -119,6 +126,7 @@ function DailyItemPage({ mode }: Props) {
                 if (!window.confirm("삭제할까요?")) return;
                 dailyAction.onDelete(id);
                 navigate(`/daily`);
+                showToast("삭제되었습니다.");
               }}
             >
               삭제

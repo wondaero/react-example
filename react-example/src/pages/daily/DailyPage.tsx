@@ -1,13 +1,22 @@
 import "@/App.css";
 import Header from "@/components/Header";
 import LinkButton from "@/components/LinkButton";
+import Toast from "@/components/Toast";
 import { Outlet } from "react-router";
-import { useState, useMemo, useReducer, useEffect } from "react";
+import {
+  useState,
+  useMemo,
+  useReducer,
+  useEffect,
+  useCallback,
+  type ReactNode,
+} from "react";
 import type { Daily, DailyFilter } from "@/types/daily";
 import {
   DailyContext,
   DailyActionsContext,
   DailyFilterContext,
+  DailyToastContext,
 } from "@/contexts/DailyContext";
 
 const homeLink = <LinkButton to="/">홈</LinkButton>;
@@ -77,13 +86,30 @@ function DailyPage() {
   }));
   const filterValue = useMemo(() => ({ filter, setFilter }), [filter]);
 
+  const [toast, setToast] = useState<{ id: number; message: ReactNode } | null>(
+    null,
+  );
+  const showToast = useCallback((message: ReactNode) => {
+    setToast({ id: Date.now(), message });
+  }, []);
+
+  const toastValue = useMemo(() => ({ showToast }), [showToast]);
+
+  useEffect(() => {
+    if (!toast) return;
+    const timer = setTimeout(() => setToast(null), 2500);
+    return () => clearTimeout(timer);
+  }, [toast]);
   return (
     <>
       <Header title="dAILY" left={homeLink}></Header>
       <DailyFilterContext value={filterValue}>
         <DailyContext value={daily}>
           <DailyActionsContext value={actions}>
-            <Outlet />
+            <DailyToastContext value={toastValue}>
+              <Outlet />
+              {toast && <Toast key={toast.id}>{toast.message}</Toast>}
+            </DailyToastContext>
           </DailyActionsContext>
         </DailyContext>
       </DailyFilterContext>

@@ -2,7 +2,7 @@ import { memo, type ReactNode, useRef, type CSSProperties } from "react";
 import styles from "./Toast.module.css";
 
 type ToastProps = {
-  message: ReactNode;
+  children: ReactNode;
   bg?: string;
   color?: string;
   toastClass?: string;
@@ -12,7 +12,7 @@ type ToastProps = {
 };
 
 function Toast({
-  message,
+  children,
   bg,
   color,
   toastStyle,
@@ -34,10 +34,13 @@ function Toast({
     <aside
       ref={toast}
       style={toastCombiStyle}
-      className={`${styles.toast} ${toastClass ?? ""}`}
+      className={`${styles.toastWrapper} ${toastClass ?? ""}`}
     >
-      <h2 style={textCombiStyle} className={textClass ?? ""}>
-        {message}
+      <h2
+        style={textCombiStyle}
+        className={`${styles.toast} ${textClass ?? ""}`}
+      >
+        {children}
       </h2>
     </aside>
   );
