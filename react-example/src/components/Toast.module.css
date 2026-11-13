@@ -10,8 +10,8 @@
     padding-bottom: 20px;
   }
   .toast {
-    --toast-bg: var(--color1);
-    --toast-color: #000;
+    --toast-bg: #222;
+    --toast-color: var(--color1);
 
     background: var(--toast-bg);
     border-radius: 8px;

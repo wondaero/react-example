@@ -36,12 +36,12 @@ function Toast({
       style={toastCombiStyle}
       className={`${styles.toastWrapper} ${toastClass ?? ""}`}
     >
-      <h2
+      <p
         style={textCombiStyle}
         className={`${styles.toast} ${textClass ?? ""}`}
       >
         {children}
-      </h2>
+      </p>
     </aside>
   );
 }

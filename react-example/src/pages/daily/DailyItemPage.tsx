@@ -4,7 +4,14 @@ import Textarea from "@/components/Textarea";
 import Button from "@/components/Button";
 import LinkButton from "@/components/LinkButton";
 import WeatherIcon from "@/components/WeatherIcon";
-import { useState, useEffect, useContext, memo, useCallback } from "react";
+import {
+  useRef,
+  useState,
+  useEffect,
+  useContext,
+  memo,
+  useCallback,
+} from "react";
 import { useNavigate, useParams } from "react-router";
 
 import {
@@ -61,8 +68,11 @@ function DailyItemPage({ mode }: Props) {
   const { id } = useParams();
 
   const found = dailyList.find((d) => d.id === id);
+  const isDeleting = useRef(false);
 
   useEffect(() => {
+    if (isDeleting.current) return;
+
     if (mode !== "new" && !found) {
       alert("존재하지 않는 일기입니다.");
       navigate("/daily", { replace: true });
@@ -124,6 +134,7 @@ function DailyItemPage({ mode }: Props) {
               onClick={() => {
                 if (!id) return;
                 if (!window.confirm("삭제할까요?")) return;
+                isDeleting.current = true;
                 dailyAction.onDelete(id);
                 navigate(`/daily`);
                 showToast("삭제되었습니다.");

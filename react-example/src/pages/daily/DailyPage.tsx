@@ -76,7 +76,6 @@ function DailyPage() {
   );
 
   useEffect(() => {
-    console.log("데이터 변동 발생!!!");
     window.localStorage.setItem("daily", JSON.stringify(daily));
   }, [daily]);
 
